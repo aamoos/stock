@@ -728,6 +728,69 @@ tbody tr:hover {
   font-size: 12px;
 }
 
+/* ============ Guide list & cards ============ */
+
+.guide-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 8px 0 20px;
+}
+
+.guide-card {
+  display: block;
+  background: #141823;
+  border: 1px solid #222838;
+  border-radius: 12px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.08s, background 0.15s;
+}
+
+.guide-card:hover {
+  border-color: #4f8cff66;
+  background: #171c2a;
+}
+
+.guide-card:active {
+  transform: translateY(1px);
+}
+
+.guide-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8b92a5;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.guide-meta-top {
+  margin: 0 0 20px;
+}
+
+.guide-card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #e6e9ef;
+  margin: 0 0 6px;
+  line-height: 1.45;
+}
+
+.guide-card-desc {
+  color: #a6adbc;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.guide-card-more {
+  color: #7fa8ff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* ============ Responsive: Drawer on narrow screens ============ */
 
 @media (max-width: 1024px) {

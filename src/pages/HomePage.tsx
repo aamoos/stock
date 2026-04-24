@@ -447,6 +447,7 @@ export function HomePage() {
               </p>
             </div>
             <nav className="top-nav">
+              <Link to="/guide">가이드</Link>
               <Link to="/about">사용법</Link>
               <Link to="/disclaimer">면책</Link>
               <Link to="/privacy">개인정보</Link>

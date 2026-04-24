@@ -4,6 +4,8 @@ import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { GuideIndexPage } from './pages/GuideIndexPage';
+import { GuideArticlePage } from './pages/GuideArticlePage';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/guide" element={<GuideIndexPage />} />
+        <Route path="/guide/:slug" element={<GuideArticlePage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </BrowserRouter>

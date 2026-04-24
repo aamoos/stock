@@ -6,6 +6,8 @@ export function SiteFooter() {
       <nav className="footer-nav">
         <Link to="/">홈</Link>
         <span className="dot">·</span>
+        <Link to="/guide">가이드</Link>
+        <span className="dot">·</span>
         <Link to="/about">사용법</Link>
         <span className="dot">·</span>
         <Link to="/disclaimer">면책조항</Link>
