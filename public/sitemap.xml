@@ -11,6 +11,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://stock-ten-iota.vercel.app/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://stock-ten-iota.vercel.app/guide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -22,6 +27,21 @@
   </url>
   <url>
     <loc>https://stock-ten-iota.vercel.app/guide/isa-account-dividend-tax</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/covered-call-etf-comparison</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/monthly-dividend-portfolio-scenarios</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/us-dividend-tax-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

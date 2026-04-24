@@ -6,6 +6,7 @@ import { DisclaimerPage } from './pages/DisclaimerPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { GuideIndexPage } from './pages/GuideIndexPage';
 import { GuideArticlePage } from './pages/GuideArticlePage';
+import { ContactPage } from './pages/ContactPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/disclaimer" element={<DisclaimerPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/guide" element={<GuideIndexPage />} />

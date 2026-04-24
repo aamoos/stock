@@ -10,6 +10,8 @@ export function SiteFooter() {
         <span className="dot">·</span>
         <Link to="/about">사용법</Link>
         <span className="dot">·</span>
+        <Link to="/contact">문의</Link>
+        <span className="dot">·</span>
         <Link to="/disclaimer">면책조항</Link>
         <span className="dot">·</span>
         <Link to="/privacy">개인정보처리방침</Link>

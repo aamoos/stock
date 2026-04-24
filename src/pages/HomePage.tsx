@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   CartesianGrid,
   Legend,
@@ -446,12 +445,6 @@ export function HomePage() {
                 일반계좌 · ISA계좌 월배당 ETF의 배당 재투자와 자산 성장을 시뮬레이션합니다.
               </p>
             </div>
-            <nav className="top-nav">
-              <Link to="/guide">가이드</Link>
-              <Link to="/about">사용법</Link>
-              <Link to="/disclaimer">면책</Link>
-              <Link to="/privacy">개인정보</Link>
-            </nav>
           </div>
         </header>
 
