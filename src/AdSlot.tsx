@@ -41,7 +41,6 @@ interface AdSlotProps {
   format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
   responsive?: boolean;
   minHeight?: number;
-  label?: string;
 }
 
 export function AdSlot({
@@ -49,7 +48,6 @@ export function AdSlot({
   format = 'auto',
   responsive = true,
   minHeight = 100,
-  label = '광고',
 }: AdSlotProps) {
   const insRef = useRef<HTMLModElement>(null);
   const pushedRef = useRef(false);
@@ -73,15 +71,7 @@ export function AdSlot({
   }, [enabled]);
 
   if (!enabled) {
-    return (
-      <div
-        className="ad-placeholder"
-        style={{ minHeight }}
-        aria-hidden="true"
-      >
-        <span>{label} 자리 (AdSense 미설정)</span>
-      </div>
-    );
+    return null;
   }
 
   return (

@@ -484,7 +484,6 @@ export function HomePage() {
           slot={AD_SLOT_MIDDLE}
           format="auto"
           minHeight={120}
-          label="본문 광고"
         />
 
         <section className="card">
@@ -610,7 +609,6 @@ export function HomePage() {
           slot={AD_SLOT_BOTTOM}
           format="auto"
           minHeight={150}
-          label="하단 광고"
         />
 
         <SiteFooter />

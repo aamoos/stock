@@ -36,7 +36,6 @@ export function GuideArticlePage() {
         slot={AD_SLOT_MIDDLE}
         format="auto"
         minHeight={120}
-        label="본문 광고"
       />
 
       {others.length > 0 && (
