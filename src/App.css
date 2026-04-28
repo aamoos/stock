@@ -526,6 +526,13 @@ select:focus {
   color: #ff6b6b;
 }
 
+.stat-sub {
+  font-size: 11px;
+  color: #6b7184;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
 /* ============ Per-Holding Summary ============ */
 
 .per-holding-grid {

@@ -126,6 +126,26 @@ export function HomePage() {
 
   const last = results[results.length - 1];
 
+  const initialPrincipalKrw = useMemo(
+    () =>
+      visibleHoldings.reduce(
+        (sum, h) =>
+          sum +
+          h.shares * h.pricePerShare * (h.currency === 'USD' ? usdKrw : 1),
+        0,
+      ),
+    [visibleHoldings, usdKrw],
+  );
+
+  const totalPrincipalKrw = last
+    ? initialPrincipalKrw + last.cumContributionKrw
+    : initialPrincipalKrw;
+  const totalProfitKrw = last
+    ? last.totalValueKrw +
+      (reinvest ? 0 : last.cumNetDividendKrw) -
+      totalPrincipalKrw
+    : 0;
+
   const chartData = useMemo(
     () =>
       results.map((r) => ({
@@ -159,15 +179,30 @@ export function HomePage() {
         cur.valueKrw = p.valueKrw;
       });
     });
-    return visibleHoldings.map((h) => ({
-      holding: h,
-      ...(acc.get(h.id) ?? {
+    return visibleHoldings.map((h) => {
+      const agg = acc.get(h.id) ?? {
         cumContributionKrw: 0,
         cumNetDividendKrw: 0,
         valueKrw: 0,
-      }),
-    }));
-  }, [results, visibleHoldings]);
+      };
+      const initialPrincipalKrw =
+        h.shares *
+        h.pricePerShare *
+        (h.currency === 'USD' ? usdKrw : 1);
+      const totalPrincipalKrw =
+        initialPrincipalKrw + agg.cumContributionKrw;
+      const realizedDividendKrw = reinvest ? 0 : agg.cumNetDividendKrw;
+      const profitKrw =
+        agg.valueKrw + realizedDividendKrw - totalPrincipalKrw;
+      return {
+        holding: h,
+        ...agg,
+        initialPrincipalKrw,
+        totalPrincipalKrw,
+        profitKrw,
+      };
+    });
+  }, [results, visibleHoldings, usdKrw, reinvest]);
 
   const updateHolding = (id: string, patch: Partial<Holding>) => {
     setHoldings((prev) =>
@@ -529,8 +564,12 @@ export function HomePage() {
                 </div>
               </div>
               <div className="stat">
-                <div className="stat-label">누적 투자 원금</div>
+                <div className="stat-label">투자 원금 (초기+적립)</div>
                 <div className="stat-value">
+                  {formatKrwFull(totalPrincipalKrw)}
+                </div>
+                <div className="stat-sub">
+                  초기 {formatKrwFull(initialPrincipalKrw)} · 적립{' '}
                   {formatKrwFull(last.cumContributionKrw)}
                 </div>
               </div>
@@ -538,6 +577,24 @@ export function HomePage() {
                 <div className="stat-label">누적 세후 배당</div>
                 <div className="stat-value accent">
                   {formatKrwFull(last.cumNetDividendKrw)}
+                </div>
+              </div>
+              <div className="stat">
+                <div className="stat-label">평가 손익</div>
+                <div
+                  className={`stat-value ${totalProfitKrw >= 0 ? 'accent' : 'negative'}`}
+                >
+                  {totalProfitKrw >= 0 ? '+' : ''}
+                  {formatKrwFull(totalProfitKrw)}
+                  {totalPrincipalKrw > 0 && (
+                    <span className="roi-pct">
+                      {' '}
+                      (
+                      {totalProfitKrw / totalPrincipalKrw >= 0 ? '+' : ''}
+                      {((totalProfitKrw / totalPrincipalKrw) * 100).toFixed(1)}
+                      %)
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="stat">
@@ -555,11 +612,17 @@ export function HomePage() {
             <h2>종목별 결과 ({last.label} 기준)</h2>
             <div className="per-holding-grid">
               {perHoldingSummary.map(
-                ({ holding, cumContributionKrw, cumNetDividendKrw, valueKrw }) => {
-                  const profit = valueKrw - cumContributionKrw;
+                ({
+                  holding,
+                  cumNetDividendKrw,
+                  valueKrw,
+                  initialPrincipalKrw,
+                  totalPrincipalKrw,
+                  profitKrw,
+                }) => {
                   const roi =
-                    cumContributionKrw > 0
-                      ? (profit / cumContributionKrw) * 100
+                    totalPrincipalKrw > 0
+                      ? (profitKrw / totalPrincipalKrw) * 100
                       : 0;
                   return (
                     <div key={holding.id} className="per-holding-card">
@@ -582,9 +645,12 @@ export function HomePage() {
                           </div>
                         </div>
                         <div className="per-holding-stat">
-                          <div className="stat-label">누적 원금</div>
+                          <div className="stat-label">투자 원금 (초기+적립)</div>
                           <div className="stat-value">
-                            {formatKrwFull(cumContributionKrw)}
+                            {formatKrwFull(totalPrincipalKrw)}
+                          </div>
+                          <div className="stat-sub">
+                            초기 {formatKrwFull(initialPrincipalKrw)}
                           </div>
                         </div>
                         <div className="per-holding-stat">
@@ -596,11 +662,11 @@ export function HomePage() {
                         <div className="per-holding-stat">
                           <div className="stat-label">평가 손익</div>
                           <div
-                            className={`stat-value ${profit >= 0 ? 'accent' : 'negative'}`}
+                            className={`stat-value ${profitKrw >= 0 ? 'accent' : 'negative'}`}
                           >
-                            {profit >= 0 ? '+' : ''}
-                            {formatKrwFull(profit)}
-                            {cumContributionKrw > 0 && (
+                            {profitKrw >= 0 ? '+' : ''}
+                            {formatKrwFull(profitKrw)}
+                            {totalPrincipalKrw > 0 && (
                               <span className="roi-pct">
                                 {' '}
                                 ({roi >= 0 ? '+' : ''}
