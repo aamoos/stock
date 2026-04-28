@@ -709,8 +709,8 @@ export function HomePage() {
                 />
                 <Tooltip
                   contentStyle={{
-                    background: '#1a1f2b',
-                    border: '1px solid #2a2f3a',
+                    background: "#1a1f2b",
+                    border: "1px solid #2a2f3a",
                     borderRadius: 8,
                   }}
                   formatter={(v) => formatKrwFull(Number(v))}
