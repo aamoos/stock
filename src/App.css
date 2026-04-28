@@ -522,6 +522,79 @@ select:focus {
   color: #4ade80;
 }
 
+.stat-value.negative {
+  color: #ff6b6b;
+}
+
+/* ============ Per-Holding Summary ============ */
+
+.per-holding-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.per-holding-card {
+  background: #0e1220;
+  border: 1px solid #222838;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.per-holding-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.per-holding-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e6e9ef;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.per-holding-ticker {
+  font-size: 11px;
+  color: #6b7184;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.per-holding-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.per-holding-stat .stat-label {
+  font-size: 11px;
+  color: #8b92a5;
+  margin-bottom: 4px;
+}
+
+.per-holding-stat .stat-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e6e9ef;
+}
+
+.per-holding-stat .roi-pct {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
 /* ============ Chart & Table ============ */
 
 .chart-wrap {

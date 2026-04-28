@@ -138,6 +138,37 @@ export function HomePage() {
     [results],
   );
 
+  const perHoldingSummary = useMemo(() => {
+    const acc = new Map<
+      string,
+      { cumContributionKrw: number; cumNetDividendKrw: number; valueKrw: number }
+    >();
+    visibleHoldings.forEach((h) => {
+      acc.set(h.id, {
+        cumContributionKrw: 0,
+        cumNetDividendKrw: 0,
+        valueKrw: 0,
+      });
+    });
+    results.forEach((r) => {
+      r.perHolding.forEach((p) => {
+        const cur = acc.get(p.id);
+        if (!cur) return;
+        cur.cumContributionKrw += p.contributionKrw;
+        cur.cumNetDividendKrw += p.netDividendKrw;
+        cur.valueKrw = p.valueKrw;
+      });
+    });
+    return visibleHoldings.map((h) => ({
+      holding: h,
+      ...(acc.get(h.id) ?? {
+        cumContributionKrw: 0,
+        cumNetDividendKrw: 0,
+        valueKrw: 0,
+      }),
+    }));
+  }, [results, visibleHoldings]);
+
   const updateHolding = (id: string, patch: Partial<Holding>) => {
     setHoldings((prev) =>
       prev.map((h) => (h.id === id ? { ...h, ...patch } : h)),
@@ -515,6 +546,74 @@ export function HomePage() {
                   {formatKrwFull(last.totalNetDividendKrw)}
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {last && perHoldingSummary.length > 0 && (
+          <section className="card">
+            <h2>종목별 결과 ({last.label} 기준)</h2>
+            <div className="per-holding-grid">
+              {perHoldingSummary.map(
+                ({ holding, cumContributionKrw, cumNetDividendKrw, valueKrw }) => {
+                  const profit = valueKrw - cumContributionKrw;
+                  const roi =
+                    cumContributionKrw > 0
+                      ? (profit / cumContributionKrw) * 100
+                      : 0;
+                  return (
+                    <div key={holding.id} className="per-holding-card">
+                      <div className="per-holding-head">
+                        <span className={`badge badge-${holding.account}`}>
+                          {ACCOUNT_BADGE[holding.account]}
+                        </span>
+                        <span className="per-holding-name">{holding.name}</span>
+                        {holding.ticker && (
+                          <span className="per-holding-ticker">
+                            {holding.ticker}
+                          </span>
+                        )}
+                      </div>
+                      <div className="per-holding-stats">
+                        <div className="per-holding-stat">
+                          <div className="stat-label">평가금</div>
+                          <div className="stat-value">
+                            {formatKrwFull(valueKrw)}
+                          </div>
+                        </div>
+                        <div className="per-holding-stat">
+                          <div className="stat-label">누적 원금</div>
+                          <div className="stat-value">
+                            {formatKrwFull(cumContributionKrw)}
+                          </div>
+                        </div>
+                        <div className="per-holding-stat">
+                          <div className="stat-label">누적 세후 배당</div>
+                          <div className="stat-value accent">
+                            {formatKrwFull(cumNetDividendKrw)}
+                          </div>
+                        </div>
+                        <div className="per-holding-stat">
+                          <div className="stat-label">평가 손익</div>
+                          <div
+                            className={`stat-value ${profit >= 0 ? 'accent' : 'negative'}`}
+                          >
+                            {profit >= 0 ? '+' : ''}
+                            {formatKrwFull(profit)}
+                            {cumContributionKrw > 0 && (
+                              <span className="roi-pct">
+                                {' '}
+                                ({roi >= 0 ? '+' : ''}
+                                {roi.toFixed(1)}%)
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                },
+              )}
             </div>
           </section>
         )}
