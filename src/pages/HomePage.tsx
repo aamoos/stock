@@ -34,6 +34,7 @@ const STORAGE_KEYS = [
   'reinvest',
   'startYm',
   'expandedIds',
+  'hiddenIds',
 ];
 
 const DEFAULT_HOLDINGS: Holding[] = [];
@@ -64,15 +65,26 @@ export function HomePage() {
     'expandedIds',
     () => DEFAULT_HOLDINGS.map((h) => h.id),
   );
+  const [hiddenIdList, setHiddenIdList] = useLocalStorage<string[]>(
+    'hiddenIds',
+    [],
+  );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const expandedIds = useMemo(
     () => new Set(expandedIdList),
     [expandedIdList],
   );
+  const hiddenIds = useMemo(() => new Set(hiddenIdList), [hiddenIdList]);
 
   const toggleExpanded = (id: string) => {
     setExpandedIdList((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  };
+
+  const toggleHidden = (id: string) => {
+    setHiddenIdList((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
   };
@@ -92,18 +104,24 @@ export function HomePage() {
     setReinvest(true);
     setStartYm(defaultStartYm());
     setExpandedIdList(DEFAULT_HOLDINGS.map((h) => h.id));
+    setHiddenIdList([]);
   };
+
+  const visibleHoldings = useMemo(
+    () => holdings.filter((h) => !hiddenIds.has(h.id)),
+    [holdings, hiddenIds],
+  );
 
   const results = useMemo(
     () =>
       simulate({
-        holdings,
+        holdings: visibleHoldings,
         months,
         usdKrw,
         reinvest,
         startYearMonth: startYm,
       }),
-    [holdings, months, usdKrw, reinvest, startYm],
+    [visibleHoldings, months, usdKrw, reinvest, startYm],
   );
 
   const last = results[results.length - 1];
@@ -243,10 +261,11 @@ export function HomePage() {
             )}
             {holdings.map((h) => {
               const isOpen = expandedIds.has(h.id);
+              const isHidden = hiddenIds.has(h.id);
               return (
                 <div
                   key={h.id}
-                  className={`holding ${isOpen ? 'open' : ''}`}
+                  className={`holding ${isOpen ? 'open' : ''} ${isHidden ? 'hidden-holding' : ''}`}
                 >
                   <button
                     type="button"
@@ -258,6 +277,18 @@ export function HomePage() {
                       {ACCOUNT_BADGE[h.account]}
                     </span>
                     <span className="holding-title">{h.name}</span>
+                    <span
+                      className="vis"
+                      role="button"
+                      aria-label={isHidden ? '종목 표시' : '종목 숨김'}
+                      title={isHidden ? '결과에 포함' : '결과에서 숨김'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleHidden(h.id);
+                      }}
+                    >
+                      {isHidden ? '🙈' : '👁'}
+                    </span>
                     <span
                       className="del"
                       role="button"
@@ -296,12 +327,15 @@ export function HomePage() {
                           <span>계좌</span>
                           <select
                             value={h.account}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                              const nextAccount = e.target
+                                .value as Holding['account'];
                               updateHolding(h.id, {
-                                account: e.target
-                                  .value as Holding['account'],
-                              })
-                            }
+                                account: nextAccount,
+                                taxRatePct:
+                                  nextAccount === 'isa' ? 0 : 15.4,
+                              });
+                            }}
                           >
                             <option value="general">일반계좌</option>
                             <option value="isa">ISA계좌</option>
@@ -406,6 +440,11 @@ export function HomePage() {
                               })
                             }
                           />
+                          <small className="field-hint">
+                            {h.account === 'isa'
+                              ? '한도 내 0% · 초과 9.9%'
+                              : '국내상장 / 미국직접 ≈ 15.4%'}
+                          </small>
                         </label>
                       </div>
                     </div>
