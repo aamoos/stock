@@ -301,25 +301,13 @@ label.full {
 .fx-rate-equation {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px 10px;
+  gap: 4px;
 }
 
-.fx-rate-from {
-  font-size: 12px;
+.fx-rate-symbol {
+  font-size: 1.1rem;
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 6px;
-  color: #a8c4ff;
-  background: rgba(79, 140, 255, 0.14);
-  border: 1px solid rgba(79, 140, 255, 0.22);
-}
-
-.fx-rate-eq {
-  font-size: 15px;
-  font-weight: 300;
-  color: #4b5569;
-  margin: 0 -2px;
+  color: #4ade80;
 }
 
 .fx-rate-amount {
