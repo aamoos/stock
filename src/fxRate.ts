@@ -46,7 +46,7 @@ export async function fetchUsdKrwRate(
   let lastError: unknown = null;
   for (const provider of PROVIDERS) {
     try {
-      const res = await fetch(provider.url, { signal, cache: 'no-store' });
+      const res = await fetch(provider.url, { signal });
       if (!res.ok) {
         lastError = new Error(`${provider.name} HTTP ${res.status}`);
         continue;

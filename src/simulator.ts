@@ -49,14 +49,6 @@ export interface MonthResult {
 const toKrw = (amount: number, currency: Currency, fx: number) =>
   currency === 'USD' ? amount * fx : amount;
 
-const addMonths = (ym: string, offset: number) => {
-  const [ys, ms] = ym.split('-');
-  const d = new Date(Number(ys), Number(ms) - 1 + offset, 1);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  return `${y}-${m}`;
-};
-
 export function simulate(input: SimInput): MonthResult[] {
   const results: MonthResult[] = [];
 
@@ -64,11 +56,20 @@ export function simulate(input: SimInput): MonthResult[] {
     ...h,
     currentShares: h.shares,
     currentPrice: h.pricePerShare,
+    // 월별 성장 배수 사전 계산 (매 루프마다 Math.pow 반복 방지)
+    monthlyGrowthFactor: Math.pow(1 + h.annualGrowthPct / 100, 1 / 12),
+    monthlyYieldRate: h.annualYieldPct / 100 / 12,
+    netRate: 1 - h.taxRatePct / 100,
   }));
 
   let cumContribution = 0;
   let cumGross = 0;
   let cumNet = 0;
+
+  // startYearMonth 파싱을 루프 밖으로 이동
+  const [ys, ms] = input.startYearMonth.split('-');
+  const startYear = Number(ys);
+  const startMonth = Number(ms) - 1;
 
   for (let m = 1; m <= input.months; m++) {
     let totalContributionKrw = 0;
@@ -77,16 +78,15 @@ export function simulate(input: SimInput): MonthResult[] {
     let totalValueKrw = 0;
 
     const perHolding: HoldingMonth[] = state.map((h) => {
-      const monthlyGrowth = Math.pow(1 + h.annualGrowthPct / 100, 1 / 12) - 1;
-      h.currentPrice = h.currentPrice * (1 + monthlyGrowth);
+      h.currentPrice = h.currentPrice * h.monthlyGrowthFactor;
 
       const contribution = h.monthlyContribution;
       if (contribution > 0 && h.currentPrice > 0) {
         h.currentShares += contribution / h.currentPrice;
       }
 
-      const gross = h.currentShares * h.currentPrice * (h.annualYieldPct / 100 / 12);
-      const net = gross * (1 - h.taxRatePct / 100);
+      const gross = h.currentShares * h.currentPrice * h.monthlyYieldRate;
+      const net = gross * h.netRate;
 
       if (input.reinvest && h.currentPrice > 0) {
         h.currentShares += net / h.currentPrice;
@@ -117,9 +117,15 @@ export function simulate(input: SimInput): MonthResult[] {
     cumGross += totalGrossKrw;
     cumNet += totalNetKrw;
 
+    // Date 객체 없이 연월 계산
+    const totalMonths = startMonth + (m - 1);
+    const labelYear = startYear + Math.floor(totalMonths / 12);
+    const labelMonth = String((totalMonths % 12) + 1).padStart(2, '0');
+    const label = `${labelYear}-${labelMonth}`;
+
     results.push({
       month: m,
-      label: addMonths(input.startYearMonth, m - 1),
+      label,
       perHolding,
       totalContributionKrw,
       totalGrossDividendKrw: totalGrossKrw,

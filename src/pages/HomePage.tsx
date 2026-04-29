@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchUsdKrwRate } from '../fxRate';
 import {
   type Holding,
@@ -96,7 +96,12 @@ export function HomePage() {
     const isFresh =
       fxInfo && Date.now() - fxInfo.fetchedAt < FX_CACHE_MS;
     if (!isFresh) {
-      refreshUsdKrw(true);
+      // 페이지 렌더링(LCP)이 끝난 뒤 유휴 시간에 환율 조회
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(() => refreshUsdKrw(true), { timeout: 3000 });
+      } else {
+        setTimeout(() => refreshUsdKrw(true), 500);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -162,16 +167,22 @@ export function HomePage() {
     [holdings, hiddenIds],
   );
 
+  const deferredVisibleHoldings = useDeferredValue(visibleHoldings);
+  const deferredMonths = useDeferredValue(months);
+  const deferredUsdKrw = useDeferredValue(usdKrw);
+  const deferredReinvest = useDeferredValue(reinvest);
+  const deferredStartYm = useDeferredValue(startYm);
+
   const results = useMemo(
     () =>
       simulate({
-        holdings: visibleHoldings,
-        months,
-        usdKrw,
-        reinvest,
-        startYearMonth: startYm,
+        holdings: deferredVisibleHoldings,
+        months: deferredMonths,
+        usdKrw: deferredUsdKrw,
+        reinvest: deferredReinvest,
+        startYearMonth: deferredStartYm,
       }),
-    [visibleHoldings, months, usdKrw, reinvest, startYm],
+    [deferredVisibleHoldings, deferredMonths, deferredUsdKrw, deferredReinvest, deferredStartYm],
   );
 
   const last = results[results.length - 1];
