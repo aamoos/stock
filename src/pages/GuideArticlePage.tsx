@@ -1,13 +1,23 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { PageLayout } from '../components/PageLayout';
 import { AdSlot } from '../AdSlot';
-import { getGuide, GUIDES } from '../guides/articles';
+import { getGuide, GUIDES, loadGuideBody } from '../guides/articles';
+import type { ReactNode } from 'react';
 
 const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
 
 export function GuideArticlePage() {
   const { slug = '' } = useParams();
   const guide = getGuide(slug);
+  const [body, setBody] = useState<ReactNode>(null);
+
+  useEffect(() => {
+    if (!guide) return;
+    const promise = loadGuideBody(slug);
+    if (!promise) return;
+    promise.then(setBody);
+  }, [slug, guide]);
 
   if (!guide) {
     return (
@@ -30,7 +40,7 @@ export function GuideArticlePage() {
         <span>약 {guide.readingMinutes}분 읽기</span>
       </div>
 
-      {guide.body}
+      {body}
 
       <AdSlot
         slot={AD_SLOT_MIDDLE}

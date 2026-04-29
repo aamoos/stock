@@ -1,20 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchUsdKrwRate } from '../fxRate';
 import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  BarChart,
-  Bar,
-} from 'recharts';
-import {
   type Holding,
-  formatKrw,
   formatKrwFull,
   simulate,
 } from '../simulator';
@@ -24,6 +11,8 @@ import {
 } from '../useLocalStorage';
 import { AdSlot } from '../AdSlot';
 import { SiteFooter } from '../components/SiteFooter';
+
+const SimChart = lazy(() => import('../components/SimChart').then(m => ({ default: m.SimChart })));
 
 const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
 const AD_SLOT_BOTTOM = import.meta.env.VITE_ADSENSE_SLOT_BOTTOM;
@@ -37,7 +26,6 @@ const STORAGE_KEYS = [
   'startYm',
   'expandedIds',
   'hiddenIds',
-  'sidebarCollapsed',
 ];
 
 const DEFAULT_HOLDINGS: Holding[] = [];
@@ -74,10 +62,6 @@ export function HomePage() {
   );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage<boolean>(
-    'sidebarCollapsed',
-    false,
-  );
   const [fxLoading, setFxLoading] = useState(false);
   const [fxError, setFxError] = useState<string | null>(null);
   const [fxInfo, setFxInfo] = useLocalStorage<{
@@ -167,7 +151,6 @@ export function HomePage() {
     setUsdKrw(1380);
     setFxInfo(null);
     setFxError(null);
-    setSidebarCollapsed(false);
     setReinvest(true);
     setStartYm(defaultStartYm());
     setExpandedIdList(DEFAULT_HOLDINGS.map((h) => h.id));
@@ -305,10 +288,7 @@ export function HomePage() {
   };
 
   const sidebar = (
-    <aside
-      className={`sidebar${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}
-      aria-label="시뮬레이션 설정 패널"
-    >
+    <aside className="sidebar" aria-label="시뮬레이션 설정 패널">
       <div className="sidebar-head">
         <div className="sidebar-title-wrap">
           <h2 className="sidebar-title">설정</h2>
@@ -318,20 +298,19 @@ export function HomePage() {
         </div>
         <div className="sidebar-head-actions">
           <button
-            className="btn btn-ghost sidebar-collapse-toggle"
-            onClick={() => setSidebarCollapsed((v) => !v)}
-            title={sidebarCollapsed ? '설정 펼치기' : '설정 접기'}
-            aria-label={sidebarCollapsed ? '설정 펼치기' : '설정 접기'}
-          >
-            {sidebarCollapsed ? '›' : '‹'}
-          </button>
-          <button
             className="btn btn-ghost btn-reset"
             onClick={resetAll}
             title="초기값으로 리셋"
             aria-label="초기값으로 리셋"
           >
             ⟲
+          </button>
+          <button
+            className="btn btn-ghost drawer-close"
+            onClick={() => setDrawerOpen(false)}
+            aria-label="닫기"
+          >
+            ×
           </button>
         </div>
       </div>
@@ -616,7 +595,7 @@ export function HomePage() {
   );
 
   return (
-    <div className={`layout${drawerOpen ? ' drawer-open' : ''}${sidebarCollapsed ? ' sidebar-is-collapsed' : ''}`}>
+    <div className={`layout ${drawerOpen ? 'drawer-open' : ''}`}>
       <div
         className="scrim"
         onClick={() => setDrawerOpen(false)}
@@ -781,88 +760,9 @@ export function HomePage() {
           minHeight={120}
         />
 
-        <section className="card">
-          <h2>자산 성장 추이</h2>
-          <div className="chart-wrap">
-            <ResponsiveContainer width="100%" height={320}>
-              <LineChart data={chartData}>
-                <CartesianGrid stroke="#2a2f3a" strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="label"
-                  stroke="#8b92a5"
-                  tick={{ fontSize: 11 }}
-                  interval={Math.max(0, Math.floor(chartData.length / 12) - 1)}
-                />
-                <YAxis
-                  stroke="#8b92a5"
-                  tick={{ fontSize: 11 }}
-                  tickFormatter={(v) => formatKrw(v)}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: '#1a1f2b',
-                    border: '1px solid #2a2f3a',
-                    borderRadius: 8,
-                  }}
-                  formatter={(v) => formatKrwFull(Number(v))}
-                />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="평가금"
-                  stroke="#4f8cff"
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="누적원금"
-                  stroke="#8b92a5"
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="누적배당"
-                  stroke="#4ade80"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </section>
-
-        <section className="card">
-          <h2>월별 세후 배당</h2>
-          <div className="chart-wrap">
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={chartData}>
-                <CartesianGrid stroke="#2a2f3a" strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="label"
-                  stroke="#8b92a5"
-                  tick={{ fontSize: 11 }}
-                  interval={Math.max(0, Math.floor(chartData.length / 12) - 1)}
-                />
-                <YAxis
-                  stroke="#8b92a5"
-                  tick={{ fontSize: 11 }}
-                  tickFormatter={(v) => formatKrw(v)}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: '#1a1f2b',
-                    border: '1px solid #2a2f3a',
-                    borderRadius: 8,
-                  }}
-                  formatter={(v) => formatKrwFull(Number(v))}
-                />
-                <Bar dataKey="월배당" fill="#4ade80" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </section>
+        <Suspense fallback={null}>
+          <SimChart chartData={chartData} />
+        </Suspense>
 
         <section className="card">
           <h2>월별 상세</h2>
