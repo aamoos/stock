@@ -75,7 +75,6 @@ export function HomePage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [fxLoading, setFxLoading] = useState(false);
   const [fxError, setFxError] = useState<string | null>(null);
-  const [fxManual, setFxManual] = useState(false);
   const [fxInfo, setFxInfo] = useLocalStorage<{
     source: string;
     fetchedAt: number;
@@ -91,7 +90,6 @@ export function HomePage() {
       const { rate, source, fetchedAt } = await fetchUsdKrwRate();
       setUsdKrw(rate);
       setFxInfo({ source, fetchedAt });
-      setFxManual(false);
     } catch (err) {
       if (!silent) {
         setFxError(
@@ -123,6 +121,14 @@ export function HomePage() {
     const mi = String(d.getMinutes()).padStart(2, '0');
     return `${mm}/${dd} ${hh}:${mi} · ${fxInfo.source}`;
   }, [fxInfo]);
+
+  const usdKrwDisplay = useMemo(
+    () =>
+      usdKrw.toLocaleString('ko-KR', {
+        maximumFractionDigits: 2,
+      }),
+    [usdKrw],
+  );
 
   const expandedIds = useMemo(
     () => new Set(expandedIdList),
@@ -344,12 +350,12 @@ export function HomePage() {
                 onChange={(e) => setStartYm(e.target.value)}
               />
             </label>
-            <label>
-              <span className="fx-label">
-                환율 (USD→KRW)
+            <div className="fx-rate-block grid-col-full">
+              <div className="fx-rate-block-head">
+                <span className="fx-rate-pair">USD → KRW</span>
                 <button
                   type="button"
-                  className="btn btn-ghost btn-fx"
+                  className="fx-rate-refresh btn btn-ghost"
                   onClick={() => refreshUsdKrw(false)}
                   disabled={fxLoading}
                   title="현재 환율 다시 가져오기"
@@ -357,39 +363,25 @@ export function HomePage() {
                 >
                   {fxLoading ? '⏳' : '↻'}
                 </button>
-                <button
-                  type="button"
-                  className={`btn btn-ghost btn-fx ${fxManual ? 'btn-fx-active' : ''}`}
-                  onClick={() => setFxManual((v) => !v)}
-                  title={fxManual ? '자동 모드로 전환' : '직접 입력 모드로 전환'}
-                  aria-label="직접 입력 전환"
-                >
-                  ✎
-                </button>
-              </span>
-              <div className="input-prefix-wrap">
-                <span className="input-prefix">$</span>
-                <input
-                  type="number"
-                  min={0}
-                  value={usdKrw}
-                  readOnly={!fxManual}
-                  className={fxManual ? '' : 'input-readonly'}
-                  onChange={(e) =>
-                    fxManual ? setUsdKrw(Number(e.target.value) || 0) : undefined
-                  }
-                />
+              </div>
+              <div className="fx-rate-equation" aria-label={`1달러 ${usdKrwDisplay}원`}>
+                <span className="fx-rate-from">1 USD</span>
+                <span className="fx-rate-eq" aria-hidden>
+                  =
+                </span>
+                <span className="fx-rate-amount">{usdKrwDisplay}</span>
+                <span className="fx-rate-won">원</span>
               </div>
               {fxError ? (
                 <small className="field-hint fx-error">{fxError}</small>
               ) : fxLoading ? (
                 <small className="field-hint">환율 조회 중...</small>
-              ) : fxManual ? (
-                <small className="field-hint">직접 입력 모드 · ✎ 버튼으로 자동 전환</small>
               ) : fxFetchedLabel ? (
-                <small className="field-hint">갱신 {fxFetchedLabel}</small>
+                <small className="field-hint fx-rate-meta">
+                  {fxFetchedLabel}
+                </small>
               ) : null}
-            </label>
+            </div>
             <label className="toggle">
               <input
                 type="checkbox"
