@@ -1,0 +1,22 @@
+﻿# 빌드 결과물 제외
+dist/
+build/
+
+# 의존성 라이브러리 제외 (커서가 이미 구조를 알고 있으므로 인덱싱에서 제외하면 가벼워짐)
+node_modules/
+
+# 환경 변수 및 보안 파일 (가장 중요!)
+.env
+*.pem
+keys/
+
+# 로그 파일
+*.log
+
+# 이미지/SVG 에셋 (코드 컨텍스트 불필요)
+src/assets/
+*.png
+*.svg
+
+# Vite 자동 생성 타입 선언
+src/vite-env.d.ts

@@ -241,6 +241,33 @@ label.full {
   line-height: 1.35;
 }
 
+.field-hint.fx-error {
+  color: #ef4444;
+}
+
+.fx-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-fx {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-fx:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
 label.toggle {
   flex-direction: row;
   align-items: center;

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { fetchUsdKrwRate } from '../fxRate';
 import {
   CartesianGrid,
   Legend,
@@ -31,6 +32,7 @@ const STORAGE_KEYS = [
   'holdings',
   'months',
   'usdKrw',
+  'usdKrwFxInfo',
   'reinvest',
   'startYm',
   'expandedIds',
@@ -71,6 +73,39 @@ export function HomePage() {
   );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [fxLoading, setFxLoading] = useState(false);
+  const [fxError, setFxError] = useState<string | null>(null);
+  const [fxInfo, setFxInfo] = useLocalStorage<{
+    source: string;
+    fetchedAt: number;
+  } | null>('usdKrwFxInfo', null);
+
+  const refreshUsdKrw = async () => {
+    setFxLoading(true);
+    setFxError(null);
+    try {
+      const { rate, source, fetchedAt } = await fetchUsdKrwRate();
+      setUsdKrw(rate);
+      setFxInfo({ source, fetchedAt });
+    } catch (err) {
+      setFxError(
+        err instanceof Error ? err.message : '환율을 가져오지 못했습니다.',
+      );
+    } finally {
+      setFxLoading(false);
+    }
+  };
+
+  const fxFetchedLabel = useMemo(() => {
+    if (!fxInfo) return null;
+    const d = new Date(fxInfo.fetchedAt);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    return `${mm}/${dd} ${hh}:${mi} · ${fxInfo.source}`;
+  }, [fxInfo]);
+
   const expandedIds = useMemo(
     () => new Set(expandedIdList),
     [expandedIdList],
@@ -101,6 +136,8 @@ export function HomePage() {
     setHoldings(DEFAULT_HOLDINGS);
     setMonths(120);
     setUsdKrw(1380);
+    setFxInfo(null);
+    setFxError(null);
     setReinvest(true);
     setStartYm(defaultStartYm());
     setExpandedIdList(DEFAULT_HOLDINGS.map((h) => h.id));
@@ -290,13 +327,32 @@ export function HomePage() {
               />
             </label>
             <label>
-              <span>환율 (USD→KRW)</span>
+              <span className="fx-label">
+                환율 (USD→KRW)
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-fx"
+                  onClick={refreshUsdKrw}
+                  disabled={fxLoading}
+                  title="현재 환율 자동 가져오기"
+                  aria-label="현재 환율 자동 가져오기"
+                >
+                  {fxLoading ? '⏳' : '↻'}
+                </button>
+              </span>
               <input
                 type="number"
                 min={0}
                 value={usdKrw}
                 onChange={(e) => setUsdKrw(Number(e.target.value) || 0)}
               />
+              {fxError ? (
+                <small className="field-hint fx-error">{fxError}</small>
+              ) : fxFetchedLabel ? (
+                <small className="field-hint">갱신 {fxFetchedLabel}</small>
+              ) : (
+                <small className="field-hint">↻ 버튼으로 현재 환율 불러오기</small>
+              )}
             </label>
             <label className="toggle">
               <input

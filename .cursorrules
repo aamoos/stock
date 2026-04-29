@@ -1,0 +1,25 @@
+## 일반
+- 모든 답변은 한국어로 친절하게 설명해줘.
+- 코드 변경 전후의 핵심 차이점을 간단히 요약해줘.
+
+## 프로젝트 개요
+- 월배당 ETF 자산 시뮬레이터 (React 19 + TypeScript + Vite, 백엔드 없음)
+- 차트: recharts만 사용
+- 스타일: `src/App.css` 단일 파일로 관리 (CSS 모듈, Tailwind 없음), dark theme
+
+## 시뮬레이션 로직
+- 핵심 계산은 `src/simulator.ts`의 `simulate()` 순수 함수에 집중되어 있음
+- 시뮬레이션 입력을 확장할 땐 `SimInput` 인터페이스와 `simulate()` 시그니처를 함께 수정
+- 금액 표시는 두 함수를 구분해서 사용:
+  - `formatKrw(n)` → 축약형 (예: 1.23억, 500만) — 차트 축 등 공간 좁은 곳
+  - `formatKrwFull(n)` → `1,234,567원` 형태 — 카드·테이블 등 상세 표시
+
+## 상태 및 localStorage
+- 모든 사용자 설정은 `useLocalStorage` 훅으로 관리 (prefix: `stock-sim:`)
+- localStorage 키를 새로 추가하면 반드시 `HomePage.tsx`의 `STORAGE_KEYS` 배열에도 추가해야 리셋 기능이 동작함
+
+## 도메인 규칙
+- 계좌 타입: `'general'` (일반) | `'isa'` (ISA)
+- 통화: `'KRW'` | `'USD'` — USD 종목은 `usdKrw` 환율로 KRW 환산
+- 세율 기본값: 일반 계좌 15.4%, ISA 계좌 0% (한도 초과 시 9.9%는 사용자가 직접 입력)
+- 환율 자동 조회는 `src/fxRate.ts`의 `fetchUsdKrwRate()` 사용 (3단계 폴백, API 키 불필요)
