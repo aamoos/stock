@@ -11,6 +11,11 @@
   color: #e6e9ef;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo',
     'Malgun Gothic', Roboto, sans-serif;
+  transition: grid-template-columns 0.25s ease;
+}
+
+.layout.sidebar-is-collapsed {
+  grid-template-columns: 48px 1fr;
 }
 
 .sidebar {
@@ -23,6 +28,30 @@
   background: #0e1220;
   border-right: 1px solid #1c2132;
   z-index: 20;
+  transition: width 0.25s ease;
+  width: 380px;
+}
+
+.sidebar.sidebar-collapsed {
+  width: 48px;
+}
+
+.sidebar.sidebar-collapsed .sidebar-body,
+.sidebar.sidebar-collapsed .sidebar-title-wrap,
+.sidebar.sidebar-collapsed .btn-reset {
+  display: none;
+}
+
+.sidebar.sidebar-collapsed .sidebar-head {
+  padding: 14px 0;
+  justify-content: center;
+  border-bottom-color: transparent;
+}
+
+.sidebar.sidebar-collapsed .sidebar-collapse-toggle {
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
 }
 
 .sidebar-head {
@@ -108,9 +137,28 @@
   max-width: 1200px;
 }
 
-.drawer-close,
 .drawer-toggle {
   display: none;
+}
+
+.sidebar-collapse-toggle {
+  display: inline-flex;
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  color: #8b92a5;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-collapse-toggle:hover {
+  background: #1c2132;
+  color: #e6e9ef;
 }
 
 .scrim {
@@ -1021,6 +1069,14 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 
+  .layout.sidebar-is-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-collapse-toggle {
+    display: none;
+  }
+
   .sidebar {
     position: fixed;
     top: 0;
@@ -1034,10 +1090,6 @@ tbody tr:hover {
 
   .layout.drawer-open .sidebar {
     transform: translateX(0);
-  }
-
-  .drawer-close {
-    display: inline-flex;
   }
 
   .drawer-toggle {

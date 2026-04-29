@@ -37,6 +37,7 @@ const STORAGE_KEYS = [
   'startYm',
   'expandedIds',
   'hiddenIds',
+  'sidebarCollapsed',
 ];
 
 const DEFAULT_HOLDINGS: Holding[] = [];
@@ -73,6 +74,10 @@ export function HomePage() {
   );
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useLocalStorage<boolean>(
+    'sidebarCollapsed',
+    false,
+  );
   const [fxLoading, setFxLoading] = useState(false);
   const [fxError, setFxError] = useState<string | null>(null);
   const [fxInfo, setFxInfo] = useLocalStorage<{
@@ -162,6 +167,7 @@ export function HomePage() {
     setUsdKrw(1380);
     setFxInfo(null);
     setFxError(null);
+    setSidebarCollapsed(false);
     setReinvest(true);
     setStartYm(defaultStartYm());
     setExpandedIdList(DEFAULT_HOLDINGS.map((h) => h.id));
@@ -299,7 +305,10 @@ export function HomePage() {
   };
 
   const sidebar = (
-    <aside className="sidebar" aria-label="시뮬레이션 설정 패널">
+    <aside
+      className={`sidebar${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}
+      aria-label="시뮬레이션 설정 패널"
+    >
       <div className="sidebar-head">
         <div className="sidebar-title-wrap">
           <h2 className="sidebar-title">설정</h2>
@@ -309,19 +318,20 @@ export function HomePage() {
         </div>
         <div className="sidebar-head-actions">
           <button
+            className="btn btn-ghost sidebar-collapse-toggle"
+            onClick={() => setSidebarCollapsed((v) => !v)}
+            title={sidebarCollapsed ? '설정 펼치기' : '설정 접기'}
+            aria-label={sidebarCollapsed ? '설정 펼치기' : '설정 접기'}
+          >
+            {sidebarCollapsed ? '›' : '‹'}
+          </button>
+          <button
             className="btn btn-ghost btn-reset"
             onClick={resetAll}
             title="초기값으로 리셋"
             aria-label="초기값으로 리셋"
           >
             ⟲
-          </button>
-          <button
-            className="btn btn-ghost drawer-close"
-            onClick={() => setDrawerOpen(false)}
-            aria-label="닫기"
-          >
-            ×
           </button>
         </div>
       </div>
@@ -606,7 +616,7 @@ export function HomePage() {
   );
 
   return (
-    <div className={`layout ${drawerOpen ? 'drawer-open' : ''}`}>
+    <div className={`layout${drawerOpen ? ' drawer-open' : ''}${sidebarCollapsed ? ' sidebar-is-collapsed' : ''}`}>
       <div
         className="scrim"
         onClick={() => setDrawerOpen(false)}
