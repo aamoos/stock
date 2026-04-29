@@ -7,8 +7,7 @@ export default defineConfig({
   build: {
     target: "esnext",
     minify: "terser",
-    // 1. 청크 크기 경고 제한을 1000kB로 상향 (노란 경고 해결)
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 600,
     terserOptions: {
       compress: {
         drop_console: true,
@@ -18,7 +17,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        // 2. 청크 전략을 통해 큰 라이브러리 분리
         manualChunks(id) {
           if (
             id.includes("node_modules/recharts") ||
@@ -41,7 +39,6 @@ export default defineConfig({
           ) {
             return "react-vendor";
           }
-          // 추가적으로 용량이 큰 외부 라이브러리가 있다면 아래와 같이 일반화 가능합니다.
           if (id.includes("node_modules")) {
             return "vendor";
           }
