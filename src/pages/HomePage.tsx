@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { fetchUsdKrwRate } from '../fxRate';
 import {
   CartesianGrid,
@@ -75,26 +75,44 @@ export function HomePage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [fxLoading, setFxLoading] = useState(false);
   const [fxError, setFxError] = useState<string | null>(null);
+  const [fxManual, setFxManual] = useState(false);
   const [fxInfo, setFxInfo] = useLocalStorage<{
     source: string;
     fetchedAt: number;
   } | null>('usdKrwFxInfo', null);
 
-  const refreshUsdKrw = async () => {
+  const FX_CACHE_MS = 60 * 60 * 1000; // 1시간
+  const fxInitialized = useRef(false);
+
+  const refreshUsdKrw = async (silent = false) => {
+    if (!silent) setFxError(null);
     setFxLoading(true);
-    setFxError(null);
     try {
       const { rate, source, fetchedAt } = await fetchUsdKrwRate();
       setUsdKrw(rate);
       setFxInfo({ source, fetchedAt });
+      setFxManual(false);
     } catch (err) {
-      setFxError(
-        err instanceof Error ? err.message : '환율을 가져오지 못했습니다.',
-      );
+      if (!silent) {
+        setFxError(
+          err instanceof Error ? err.message : '환율을 가져오지 못했습니다.',
+        );
+      }
     } finally {
       setFxLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (fxInitialized.current) return;
+    fxInitialized.current = true;
+    const isFresh =
+      fxInfo && Date.now() - fxInfo.fetchedAt < FX_CACHE_MS;
+    if (!isFresh) {
+      refreshUsdKrw(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fxFetchedLabel = useMemo(() => {
     if (!fxInfo) return null;
@@ -332,27 +350,45 @@ export function HomePage() {
                 <button
                   type="button"
                   className="btn btn-ghost btn-fx"
-                  onClick={refreshUsdKrw}
+                  onClick={() => refreshUsdKrw(false)}
                   disabled={fxLoading}
-                  title="현재 환율 자동 가져오기"
-                  aria-label="현재 환율 자동 가져오기"
+                  title="현재 환율 다시 가져오기"
+                  aria-label="현재 환율 다시 가져오기"
                 >
                   {fxLoading ? '⏳' : '↻'}
                 </button>
+                <button
+                  type="button"
+                  className={`btn btn-ghost btn-fx ${fxManual ? 'btn-fx-active' : ''}`}
+                  onClick={() => setFxManual((v) => !v)}
+                  title={fxManual ? '자동 모드로 전환' : '직접 입력 모드로 전환'}
+                  aria-label="직접 입력 전환"
+                >
+                  ✎
+                </button>
               </span>
-              <input
-                type="number"
-                min={0}
-                value={usdKrw}
-                onChange={(e) => setUsdKrw(Number(e.target.value) || 0)}
-              />
+              <div className="input-prefix-wrap">
+                <span className="input-prefix">$</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={usdKrw}
+                  readOnly={!fxManual}
+                  className={fxManual ? '' : 'input-readonly'}
+                  onChange={(e) =>
+                    fxManual ? setUsdKrw(Number(e.target.value) || 0) : undefined
+                  }
+                />
+              </div>
               {fxError ? (
                 <small className="field-hint fx-error">{fxError}</small>
+              ) : fxLoading ? (
+                <small className="field-hint">환율 조회 중...</small>
+              ) : fxManual ? (
+                <small className="field-hint">직접 입력 모드 · ✎ 버튼으로 자동 전환</small>
               ) : fxFetchedLabel ? (
                 <small className="field-hint">갱신 {fxFetchedLabel}</small>
-              ) : (
-                <small className="field-hint">↻ 버튼으로 현재 환율 불러오기</small>
-              )}
+              ) : null}
             </label>
             <label className="toggle">
               <input
