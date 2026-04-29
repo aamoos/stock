@@ -253,6 +253,7 @@ export function HomePage() {
                 </button>
               </div>
               <div className="fx-rate-equation">
+                <span className="fx-rate-label">1 USD =</span>
                 <span className="fx-rate-symbol">₩</span>
                 <span className="fx-rate-amount">{usdKrwDisplay}</span>
                 <span className="fx-rate-won">원</span>

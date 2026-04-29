@@ -304,6 +304,14 @@ label.full {
   gap: 4px;
 }
 
+.fx-rate-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #8b92a5;
+  margin-right: 2px;
+  letter-spacing: 0.02em;
+}
+
 .fx-rate-symbol {
   font-size: 1.1rem;
   font-weight: 600;
