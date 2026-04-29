@@ -45,7 +45,6 @@ export function GuideArticlePage() {
       <AdSlot
         slot={AD_SLOT_MIDDLE}
         format="auto"
-        minHeight={120}
       />
 
       {others.length > 0 && (

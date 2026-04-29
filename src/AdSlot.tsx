@@ -40,14 +40,12 @@ interface AdSlotProps {
   slot?: string;
   format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical';
   responsive?: boolean;
-  minHeight?: number;
 }
 
 export function AdSlot({
   slot,
   format = 'auto',
   responsive = true,
-  minHeight = 100,
 }: AdSlotProps) {
   const insRef = useRef<HTMLModElement>(null);
   const pushedRef = useRef(false);
@@ -75,7 +73,7 @@ export function AdSlot({
   }
 
   return (
-    <div className="ad-wrap" style={{ minHeight }}>
+    <div className="ad-wrap">
       <ins
         ref={insRef}
         className="adsbygoogle"

@@ -533,7 +533,7 @@ export function HomePage() {
           </section>
         )}
 
-        <AdSlot slot={AD_SLOT_MIDDLE} format="auto" minHeight={120} />
+        <AdSlot slot={AD_SLOT_MIDDLE} format="auto" />
 
         <Suspense fallback={null}>
           <SimChart chartData={chartData} />
@@ -566,7 +566,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <AdSlot slot={AD_SLOT_BOTTOM} format="auto" minHeight={150} />
+        <AdSlot slot={AD_SLOT_BOTTOM} format="auto" />
 
         <SiteFooter />
       </main>
