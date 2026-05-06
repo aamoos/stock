@@ -167,6 +167,84 @@
   color: transparent;
 }
 
+/* ============ Hits badge ============ */
+
+.hits-badge {
+  display: inline-flex;
+  margin-top: 10px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.hits-badge:hover {
+  opacity: 1;
+}
+
+.hits-badge img {
+  height: 22px;
+  border-radius: 4px;
+}
+
+/* ============ Site Stats Bar ============ */
+
+.site-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #222838;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.site-stats-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.site-stats-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.site-stats-dot--active {
+  background: #4ade80;
+  box-shadow: 0 0 6px #4ade8099;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.site-stats-label {
+  font-size: 11px;
+  color: #8b92a5;
+}
+
+.site-stats-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #c8d0e0;
+}
+
+.site-stats-divider {
+  width: 1px;
+  height: 14px;
+  background: #2a3045;
+}
+
+.site-stats-loading {
+  font-size: 11px;
+  color: #8b92a5;
+}
+
 .top-nav {
   display: flex;
   gap: 14px;

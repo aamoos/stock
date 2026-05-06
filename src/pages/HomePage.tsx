@@ -467,6 +467,18 @@ export function HomePage() {
               </p>
             </div>
           </div>
+          <a
+            href="https://hits.seeyoufarm.com"
+            className="hits-badge"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="방문자 수"
+          >
+            <img
+              src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fstock-ten-iota.vercel.app&count_bg=%234F8CFF&title_bg=%23222838&icon=&icon_color=%23E7E7E7&title=%EB%B0%A9%EB%AC%B8%EC%9E%90&edge_flat=true"
+              alt="방문자 수"
+            />
+          </a>
         </header>
 
         {hasResults && workerResult && (
