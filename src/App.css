@@ -1022,6 +1022,49 @@ tbody tr:hover {
   font-weight: 500;
 }
 
+/* ============ FAQ section ============ */
+
+.faq-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid #222838;
+}
+
+.faq-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: #141823;
+  border: 1px solid #222838;
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.faq-question {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e6e9ef;
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.faq-question::before {
+  content: 'Q. ';
+  color: #4f8cff;
+}
+
+.faq-answer {
+  font-size: 14px;
+  color: #a6adbc;
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* ============ Responsive: Drawer on narrow screens ============ */
 
 @media (max-width: 1024px) {

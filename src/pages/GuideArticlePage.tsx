@@ -40,7 +40,7 @@ export function GuideArticlePage() {
     headline: guide.title,
     description: guide.description,
     datePublished: guide.publishedAt,
-    dateModified: guide.publishedAt,
+    dateModified: guide.updatedAt ?? guide.publishedAt,
     author: {
       '@type': 'Organization',
       name: '월배당 자산 시뮬레이터',
@@ -57,6 +57,19 @@ export function GuideArticlePage() {
     },
   };
 
+  const faqSchema = guide.faq && guide.faq.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: guide.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  } : null;
+
   return (
     <PageLayout title={guide.title} subtitle={guide.description}>
       <SEO
@@ -65,15 +78,42 @@ export function GuideArticlePage() {
         canonical={`/guide/${guide.slug}`}
         ogType="article"
         publishedAt={guide.publishedAt}
+        modifiedAt={guide.updatedAt}
         schemaJson={articleSchema}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <div className="guide-meta guide-meta-top">
         <span>{guide.publishedAt}</span>
+        {guide.updatedAt && guide.updatedAt !== guide.publishedAt && (
+          <>
+            <span className="dot">·</span>
+            <span>최종 수정 {guide.updatedAt}</span>
+          </>
+        )}
         <span className="dot">·</span>
         <span>약 {guide.readingMinutes}분 읽기</span>
       </div>
 
       {body}
+
+      {guide.faq && guide.faq.length > 0 && (
+        <section className="faq-section">
+          <h2>자주 묻는 질문 (FAQ)</h2>
+          <dl className="faq-list">
+            {guide.faq.map((item, i) => (
+              <div key={i} className="faq-item">
+                <dt className="faq-question">{item.question}</dt>
+                <dd className="faq-answer">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <AdSlot
         slot={AD_SLOT_MIDDLE}
