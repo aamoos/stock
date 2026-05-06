@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { PageLayout } from '../components/PageLayout';
+import { SEO } from '../components/SEO';
 import { AdSlot } from '../AdSlot';
 import { getGuide, GUIDES, loadGuideBody } from '../guides/articles';
 import type { ReactNode } from 'react';
@@ -22,6 +23,7 @@ export function GuideArticlePage() {
   if (!guide) {
     return (
       <PageLayout title="가이드를 찾을 수 없습니다">
+        <SEO title="가이드를 찾을 수 없습니다" canonical="/guide" />
         <p>
           요청하신 글이 존재하지 않습니다.{' '}
           <Link to="/guide">가이드 목록으로 돌아가기</Link>
@@ -32,8 +34,39 @@ export function GuideArticlePage() {
 
   const others = GUIDES.filter((g) => g.slug !== guide.slug);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title,
+    description: guide.description,
+    datePublished: guide.publishedAt,
+    dateModified: guide.publishedAt,
+    author: {
+      '@type': 'Organization',
+      name: '월배당 자산 시뮬레이터',
+      url: 'https://stock-ten-iota.vercel.app',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: '월배당 자산 시뮬레이터',
+      url: 'https://stock-ten-iota.vercel.app',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://stock-ten-iota.vercel.app/guide/${guide.slug}`,
+    },
+  };
+
   return (
     <PageLayout title={guide.title} subtitle={guide.description}>
+      <SEO
+        title={guide.title}
+        description={guide.description}
+        canonical={`/guide/${guide.slug}`}
+        ogType="article"
+        publishedAt={guide.publishedAt}
+        schemaJson={articleSchema}
+      />
       <div className="guide-meta guide-meta-top">
         <span>{guide.publishedAt}</span>
         <span className="dot">·</span>

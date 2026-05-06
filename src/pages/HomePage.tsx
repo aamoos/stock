@@ -3,6 +3,7 @@ import { fetchUsdKrwRate } from '../fxRate';
 import { type Holding, formatKrwFull } from '../simulator';
 import { clearLocalStorageKeys, useLocalStorage } from '../useLocalStorage';
 import { AdSlot } from '../AdSlot';
+import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
 import type { WorkerOutput, ChartPoint, PerHoldingRow } from '../workers/simulator.worker';
 
@@ -422,8 +423,29 @@ export function HomePage() {
     </aside>
   );
 
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: '월배당 자산 시뮬레이터',
+    url: 'https://stock-ten-iota.vercel.app',
+    description: 'QQQI, TIGER 나스닥100 커버드콜 등 월배당 ETF의 월 적립·배당 재투자(DRIP)를 시뮬레이션하고, 일반계좌·ISA계좌별 세후 수익과 장기 자산 성장을 계산합니다.',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'KRW',
+    },
+    inLanguage: 'ko',
+  };
+
   return (
     <div className={`layout ${drawerOpen ? 'drawer-open' : ''}`}>
+      <SEO
+        description="QQQI, TIGER 나스닥100 커버드콜 등 월배당 ETF의 월 적립·배당 재투자(DRIP)를 시뮬레이션하고, 일반계좌·ISA계좌별 세후 수익과 장기 자산 성장을 계산합니다."
+        canonical="/"
+        schemaJson={websiteSchema}
+      />
       <div className="scrim" onClick={() => setDrawerOpen(false)} aria-hidden="true" />
 
       {sidebar}

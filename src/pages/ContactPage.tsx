@@ -1,4 +1,5 @@
 import { PageLayout } from '../components/PageLayout';
+import { SEO } from '../components/SEO';
 
 const CONTACT_EMAIL = 'aamoos@naver.com';
 
@@ -8,6 +9,11 @@ export function ContactPage() {
       title="문의하기"
       subtitle="사이트 관련 문의, 오류 신고, 콘텐츠 제안을 받습니다."
     >
+      <SEO
+        title="문의하기"
+        description="월배당 자산 시뮬레이터에 대한 기능 문의, 오류 신고, 콘텐츠 제안을 이메일로 받습니다."
+        canonical="/contact"
+      />
       <section>
         <h2>이메일 문의</h2>
         <p>

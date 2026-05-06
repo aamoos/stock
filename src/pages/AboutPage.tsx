@@ -1,11 +1,17 @@
 import { PageLayout } from '../components/PageLayout';
-//
+import { SEO } from '../components/SEO';
+
 export function AboutPage() {
   return (
     <PageLayout
       title="사용법 및 계산 방식"
       subtitle="이 시뮬레이터가 무엇을 계산하고, 어떤 가정 위에서 동작하는지 설명합니다."
     >
+      <SEO
+        title="사용법 및 계산 방식"
+        description="월배당 자산 시뮬레이터의 계산 공식, 주요 가정, 세율 입력 기준, 운영 정보를 설명합니다. DRIP(배당 재투자), 월 복리 계산 방식을 투명하게 공개합니다."
+        canonical="/about"
+      />
       <section>
         <h2>1. 이 도구는 무엇인가요?</h2>
         <p>

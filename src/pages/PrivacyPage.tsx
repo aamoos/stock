@@ -1,4 +1,5 @@
 import { PageLayout } from '../components/PageLayout';
+import { SEO } from '../components/SEO';
 
 export function PrivacyPage() {
   return (
@@ -6,6 +7,11 @@ export function PrivacyPage() {
       title="개인정보처리방침"
       subtitle="본 서비스가 수집·이용하는 정보와 그 보호 방식에 대한 안내입니다."
     >
+      <SEO
+        title="개인정보처리방침"
+        description="월배당 자산 시뮬레이터의 개인정보 수집·이용 방침입니다. 사용자 입력값은 서버에 저장되지 않으며, Google AdSense 광고 쿠키 관련 사항을 안내합니다."
+        canonical="/privacy"
+      />
       <section>
         <h2>1. 개요</h2>
         <p>

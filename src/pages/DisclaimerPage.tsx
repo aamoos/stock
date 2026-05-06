@@ -1,11 +1,17 @@
-import { PageLayout } from '../components/PageLayout';
+﻿import { PageLayout } from '../components/PageLayout';
+import { SEO } from '../components/SEO';
 
 export function DisclaimerPage() {
   return (
     <PageLayout
       title="면책조항"
-      subtitle="본 사이트(이하 “서비스”)의 이용에 앞서 반드시 아래 내용을 숙지하여 주시기 바랍니다."
+      subtitle={'본 사이트(이하 "서비스")의 이용에 앞서 반드시 아래 내용을 숙지하여 주시기 바랍니다.'}
     >
+      <SEO
+        title="면책조항"
+        description="월배당 자산 시뮬레이터 이용 전 필독 사항입니다. 본 서비스는 투자 자문이 아닌 참고용 계산 도구이며, 투자 결정에 따른 손실에 대해 책임을 지지 않습니다."
+        canonical="/disclaimer"
+      />
       <section>
         <h2>1. 정보 제공 목적</h2>
         <p>
