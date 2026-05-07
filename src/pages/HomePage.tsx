@@ -475,7 +475,7 @@ export function HomePage() {
             aria-label="방문자 수"
           >
             <img
-              src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fstock-ten-iota.vercel.app&count_bg=%234F8CFF&title_bg=%23222838&icon=&icon_color=%23E7E7E7&title=%EB%B0%A9%EB%AC%B8%EC%9E%90&edge_flat=true"
+              src="https://hits.sh/stock-ten-iota.vercel.app.svg?style=flat-square&label=%EB%B0%A9%EB%AC%B8%EC%9E%90&color=4f8cff&labelColor=222838"
               alt="방문자 수"
             />
           </a>
