@@ -7,37 +7,6 @@ import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
 import type { WorkerOutput, ChartPoint, PerHoldingRow } from '../workers/simulator.worker';
 
-function VisitorCounter() {
-  const [today, setToday] = useState<number | null>(null);
-  const [total, setTotal] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetch('/api/stats')
-      .then((r) => r.json())
-      .then((d: { todayUsers: number; totalUsers: number }) => {
-        setToday(d.todayUsers);
-        setTotal(d.totalUsers);
-      })
-      .catch(() => {});
-  }, []);
-
-  if (today === null) return null;
-
-  return (
-    <div className="visitor-counter">
-      <span className="visitor-counter-item">
-        <span className="visitor-counter-label">오늘</span>
-        <span className="visitor-counter-value">{today.toLocaleString('ko-KR')}</span>
-      </span>
-      <span className="visitor-counter-divider" />
-      <span className="visitor-counter-item">
-        <span className="visitor-counter-label">누적</span>
-        <span className="visitor-counter-value">{total?.toLocaleString('ko-KR')}</span>
-      </span>
-    </div>
-  );
-}
-
 const SimChart = lazy(() => import('../components/SimChart').then(m => ({ default: m.SimChart })));
 
 const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
@@ -498,7 +467,6 @@ export function HomePage() {
               </p>
             </div>
           </div>
-          <VisitorCounter />
         </header>
 
         {hasResults && workerResult && (
