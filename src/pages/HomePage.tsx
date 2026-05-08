@@ -7,6 +7,37 @@ import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
 import type { WorkerOutput, ChartPoint, PerHoldingRow } from '../workers/simulator.worker';
 
+function VisitorCounter() {
+  const [today, setToday] = useState<number | null>(null);
+  const [total, setTotal] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('/api/stats')
+      .then((r) => r.json())
+      .then((d: { todayUsers: number; totalUsers: number }) => {
+        setToday(d.todayUsers);
+        setTotal(d.totalUsers);
+      })
+      .catch(() => {});
+  }, []);
+
+  if (today === null) return null;
+
+  return (
+    <div className="visitor-counter">
+      <span className="visitor-counter-item">
+        <span className="visitor-counter-label">오늘</span>
+        <span className="visitor-counter-value">{today.toLocaleString('ko-KR')}</span>
+      </span>
+      <span className="visitor-counter-divider" />
+      <span className="visitor-counter-item">
+        <span className="visitor-counter-label">누적</span>
+        <span className="visitor-counter-value">{total?.toLocaleString('ko-KR')}</span>
+      </span>
+    </div>
+  );
+}
+
 const SimChart = lazy(() => import('../components/SimChart').then(m => ({ default: m.SimChart })));
 
 const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
@@ -467,13 +498,7 @@ export function HomePage() {
               </p>
             </div>
           </div>
-          <div className="hits-badge" aria-label="방문자 수">
-            <img
-              src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fstock-ten-iota.vercel.app&count_bg=%234f8cff&title_bg=%23222838&icon=&icon_color=%23E7E7E7&title=%EC%98%A4%EB%8A%98%2F%EB%88%84%EC%A0%81&edge_flat=true"
-              alt="오늘/누적 방문자 수"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-            />
-          </div>
+          <VisitorCounter />
         </header>
 
         {hasResults && workerResult && (

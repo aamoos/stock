@@ -167,6 +167,42 @@
   color: transparent;
 }
 
+/* ============ Visitor Counter ============ */
+
+.visitor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #222838;
+  border-radius: 20px;
+}
+
+.visitor-counter-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.visitor-counter-label {
+  font-size: 11px;
+  color: #8b92a5;
+}
+
+.visitor-counter-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4f8cff;
+}
+
+.visitor-counter-divider {
+  width: 1px;
+  height: 12px;
+  background: #2a3045;
+}
+
 /* ============ Hits badge ============ */
 
 .hits-badge {
