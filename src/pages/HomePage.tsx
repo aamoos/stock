@@ -467,18 +467,13 @@ export function HomePage() {
               </p>
             </div>
           </div>
-          <a
-            href="https://hits.seeyoufarm.com"
-            className="hits-badge"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="방문자 수"
-          >
+          <div className="hits-badge" aria-label="방문자 수">
             <img
-              src="https://hits.sh/stock-ten-iota.vercel.app.svg?style=flat-square&label=%EC%98%A4%EB%8A%98%2F%EB%88%84%EC%A0%81&color=4f8cff&labelColor=222838"
-              alt="방문자 수"
+              src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fstock-ten-iota.vercel.app&count_bg=%234f8cff&title_bg=%23222838&icon=&icon_color=%23E7E7E7&title=%EC%98%A4%EB%8A%98%2F%EB%88%84%EC%A0%81&edge_flat=true"
+              alt="오늘/누적 방문자 수"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
-          </a>
+          </div>
         </header>
 
         {hasResults && workerResult && (
