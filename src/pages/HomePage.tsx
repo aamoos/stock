@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchUsdKrwRate } from '../fxRate';
 import { type Holding, formatKrwFull } from '../simulator';
 import { clearLocalStorageKeys, useLocalStorage } from '../useLocalStorage';
+import { useTheme } from '../hooks/useTheme';
 import { AdSlot } from '../AdSlot';
 import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
@@ -43,6 +44,8 @@ export function HomePage() {
     'expandedIds', () => DEFAULT_HOLDINGS.map((h) => h.id),
   );
   const [hiddenIdList, setHiddenIdList] = useLocalStorage<string[]>('hiddenIds', []);
+
+  const { theme, toggle: toggleTheme } = useTheme();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [fxLoading, setFxLoading] = useState(false);
@@ -197,6 +200,14 @@ export function HomePage() {
           <span className="save-dot" title="자동 저장됨 (localStorage)">자동 저장</span>
         </div>
         <div className="sidebar-head-actions">
+          <button
+            className="btn-theme"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+            aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <button
             className="btn btn-ghost btn-reset"
             onClick={resetAll}

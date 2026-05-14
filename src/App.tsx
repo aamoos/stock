@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useTheme } from './hooks/useTheme';
 
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
 const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
@@ -10,7 +11,8 @@ const GuideIndexPage = lazy(() => import('./pages/GuideIndexPage').then(m => ({ 
 const GuideArticlePage = lazy(() => import('./pages/GuideArticlePage').then(m => ({ default: m.GuideArticlePage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
-function App() {
+function AppRoutes() {
+  useTheme();
   return (
     <BrowserRouter>
       <Suspense fallback={null}>
@@ -27,6 +29,10 @@ function App() {
       </Suspense>
     </BrowserRouter>
   );
+}
+
+function App() {
+  return <AppRoutes />;
 }
 
 export default App;
