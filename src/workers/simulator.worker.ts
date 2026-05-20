@@ -53,7 +53,7 @@ self.onmessage = (e: MessageEvent<WorkerInput>) => {
   const results = simulate(simInput);
   const holdings = simInput.holdings;
 
-  if (results.length === 0) {
+  if (holdings.length === 0 || results.length === 0) {
     self.postMessage({ hasResults: false } as WorkerOutput);
     return;
   }

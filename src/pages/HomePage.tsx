@@ -4,6 +4,7 @@ import { type Holding, formatKrwFull } from '../simulator';
 import { clearLocalStorageKeys, useLocalStorage } from '../useLocalStorage';
 import { useTheme } from '../hooks/useTheme';
 import { AdSlot } from '../AdSlot';
+import { HomeIntro } from '../components/HomeIntro';
 import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
 import type { WorkerOutput, ChartPoint, PerHoldingRow } from '../workers/simulator.worker';
@@ -480,6 +481,21 @@ export function HomePage() {
           </div>
         </header>
 
+        <HomeIntro />
+
+        {!hasResults && (
+          <section className="card">
+            <div className="empty">
+              <b>종목을 추가하면 시뮬레이션이 시작됩니다</b>
+              <br />
+              왼쪽 설정 패널(☰)에서 <b>보유 종목 + 추가</b>를 눌러 ETF를 입력하세요.
+              <br />
+              처음이라면 <a href="/guide/covered-call-etf-basics">커버드콜 ETF 기초 가이드</a>부터
+              읽어보시는 것을 권장합니다.
+            </div>
+          </section>
+        )}
+
         {hasResults && workerResult && (
           <section className="card">
             <h2>결과 요약 ({workerResult.lastLabel} 기준)</h2>
@@ -566,40 +582,44 @@ export function HomePage() {
           </section>
         )}
 
-        <AdSlot slot={AD_SLOT_MIDDLE} format="auto" />
+        {hasResults && (
+          <>
+            <AdSlot slot={AD_SLOT_MIDDLE} format="auto" />
 
-        <Suspense fallback={null}>
-          <SimChart chartData={chartData} />
-        </Suspense>
+            <Suspense fallback={null}>
+              <SimChart chartData={chartData} />
+            </Suspense>
 
-        <section className="card">
-          <h2>월별 상세</h2>
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>회차</th><th>연월</th><th>월 적립</th>
-                  <th>세후 배당</th><th>누적 배당</th><th>평가금</th><th>누적 원금</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableRows.map((r) => (
-                  <tr key={r.month}>
-                    <td>{r.month}</td>
-                    <td>{r.label}</td>
-                    <td>{formatKrwFull(r.totalContributionKrw)}</td>
-                    <td className="accent">{formatKrwFull(r.totalNetDividendKrw)}</td>
-                    <td>{formatKrwFull(r.cumNetDividendKrw)}</td>
-                    <td className="strong">{formatKrwFull(r.totalValueKrw)}</td>
-                    <td>{formatKrwFull(r.cumContributionKrw)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+            <section className="card">
+              <h2>월별 상세</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>회차</th><th>연월</th><th>월 적립</th>
+                      <th>세후 배당</th><th>누적 배당</th><th>평가금</th><th>누적 원금</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableRows.map((r) => (
+                      <tr key={r.month}>
+                        <td>{r.month}</td>
+                        <td>{r.label}</td>
+                        <td>{formatKrwFull(r.totalContributionKrw)}</td>
+                        <td className="accent">{formatKrwFull(r.totalNetDividendKrw)}</td>
+                        <td>{formatKrwFull(r.cumNetDividendKrw)}</td>
+                        <td className="strong">{formatKrwFull(r.totalValueKrw)}</td>
+                        <td>{formatKrwFull(r.cumContributionKrw)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
 
-        <AdSlot slot={AD_SLOT_BOTTOM} format="auto" />
+            <AdSlot slot={AD_SLOT_BOTTOM} format="auto" />
+          </>
+        )}
 
         <SiteFooter />
       </main>

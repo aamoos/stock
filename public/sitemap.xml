@@ -46,6 +46,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/drip-compound-effect</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/korea-covered-call-etf-comparison</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/monthly-etf-vs-dividend-stocks</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/financial-income-tax-strategy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/fx-rate-and-dividend-returns</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stock-ten-iota.vercel.app/guide/pension-isa-general-account</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://stock-ten-iota.vercel.app/disclaimer</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

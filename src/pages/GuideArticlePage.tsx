@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { PageLayout } from '../components/PageLayout';
 import { SEO } from '../components/SEO';
 import { AdSlot } from '../AdSlot';
+import { AuthorByline } from '../components/AuthorByline';
 import { getGuide, GUIDES, loadGuideBody } from '../guides/articles';
 import type { ReactNode } from 'react';
 
@@ -32,7 +33,9 @@ export function GuideArticlePage() {
     );
   }
 
-  const others = GUIDES.filter((g) => g.slug !== guide.slug);
+  const others = GUIDES.filter((g) => g.slug !== guide.slug)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, 6);
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -42,9 +45,9 @@ export function GuideArticlePage() {
     datePublished: guide.publishedAt,
     dateModified: guide.updatedAt ?? guide.publishedAt,
     author: {
-      '@type': 'Organization',
-      name: '월배당 자산 시뮬레이터',
-      url: 'https://stock-ten-iota.vercel.app',
+      '@type': 'Person',
+      name: '월배당 자산 시뮬레이터 운영자',
+      url: 'https://stock-ten-iota.vercel.app/about',
     },
     publisher: {
       '@type': 'Organization',
@@ -98,6 +101,8 @@ export function GuideArticlePage() {
         <span className="dot">·</span>
         <span>약 {guide.readingMinutes}분 읽기</span>
       </div>
+
+      <AuthorByline />
 
       {body}
 

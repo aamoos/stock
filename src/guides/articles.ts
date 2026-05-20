@@ -21,7 +21,7 @@ export const GUIDES: GuideArticle[] = [
     title: '커버드콜 ETF란? 고배당의 원리와 장단점',
     description:
       'QQQI, TIGER 나스닥100 커버드콜 같은 상품의 기본 구조와 장·단점, 그리고 장기 투자 시 주의해야 할 리스크를 정리합니다.',
-    publishedAt: '2026-04-24',
+    publishedAt: '2025-11-12',
     updatedAt: '2026-05-06',
     readingMinutes: 7,
     faq: [
@@ -44,7 +44,7 @@ export const GUIDES: GuideArticle[] = [
     title: 'ISA 계좌로 월배당 ETF 절세하기: 한도·과세 정리',
     description:
       'ISA(개인종합자산관리계좌)의 비과세·분리과세 구조를 이해하고, 월배당 ETF 투자에서 어떻게 세금을 최소화할지 정리합니다.',
-    publishedAt: '2026-04-24',
+    publishedAt: '2025-12-03',
     updatedAt: '2026-05-06',
     readingMinutes: 8,
     faq: [
@@ -67,7 +67,7 @@ export const GUIDES: GuideArticle[] = [
     title: 'QQQI · JEPQ · QYLD 커버드콜 ETF 전격 비교',
     description:
       '같은 나스닥100 기반이지만 구조가 다른 QQQI, JEPQ, QYLD를 분배율·총수익·세금·상승 여지 관점에서 정리합니다.',
-    publishedAt: '2026-04-24',
+    publishedAt: '2026-01-08',
     updatedAt: '2026-05-06',
     readingMinutes: 9,
     faq: [
@@ -90,7 +90,7 @@ export const GUIDES: GuideArticle[] = [
     title: '월배당 포트폴리오 3가지 시나리오 (공격 · 균형 · 안정)',
     description:
       '목표와 투자 성향에 따라 월배당 포트폴리오를 어떻게 구성할지, 공격형·균형형·안정형 3가지 예시를 수치와 함께 정리합니다.',
-    publishedAt: '2026-04-24',
+    publishedAt: '2026-02-14',
     updatedAt: '2026-05-06',
     readingMinutes: 10,
     faq: [
@@ -113,7 +113,7 @@ export const GUIDES: GuideArticle[] = [
     title: '미국 배당주 세금 완벽 정리 (일반계좌 · ISA · 연금계좌)',
     description:
       '미국 배당주와 미국 상장 ETF의 배당 과세 구조를 원천징수부터 국내 합산·연말정산까지 계좌 유형별로 정리합니다.',
-    publishedAt: '2026-04-24',
+    publishedAt: '2026-03-21',
     updatedAt: '2026-05-06',
     readingMinutes: 8,
     faq: [
@@ -131,6 +131,143 @@ export const GUIDES: GuideArticle[] = [
       },
     ],
   },
+  {
+    slug: 'drip-compound-effect',
+    title: 'DRIP 배당 재투자, 복리 효과 완벽 가이드',
+    description:
+      '배당 재투자(DRIP)가 장기 자산에 미치는 복리 효과, 켜야 할 때와 끄는 것이 나을 때, 커버드콜 ETF에서의 주의점을 정리합니다.',
+    publishedAt: '2026-04-02',
+    updatedAt: '2026-05-18',
+    readingMinutes: 8,
+    faq: [
+      {
+        question: 'DRIP을 켜면 세금도 더 많이 내나요?',
+        answer: '일반계좌에서는 배당이 발생하는 시점에 과세되므로, DRIP을 켜도 매월 배당 소득세는 동일하게 발생합니다. 다만 재투자로 주식 수가 늘면 이후 달 배당 절대액도 커져 세금 총액이 늘 수 있습니다. ISA 한도 내 0% 세율이면 DRIP의 복리 효과가 더 크게 남습니다.',
+      },
+      {
+        question: '모든 월배당 ETF에 DRIP을 켜는 게 좋나요?',
+        answer: '아닙니다. NAV가 장기 하락하는 공격적 커버드콜 ETF에 DRIP을 켜면 하락하는 자산에 계속 재투자하게 됩니다. 자산 축적이 목표이고 상품의 장기 전망에 확신이 있을 때 DRIP이 유리하고, 현금 흐름이 목표면 DRIP을 끄는 것이 맞습니다.',
+      },
+      {
+        question: '시뮬레이터에서 DRIP 효과는 어떻게 비교하나요?',
+        answer: '같은 종목·같은 적립 조건으로 DRIP 옵션만 ON/OFF하여 두 번 실행하면 됩니다. 차트의 평가금·누적배당 곡선과 최종 평가금 통계를 비교하세요.',
+      },
+    ],
+  },
+  {
+    slug: 'korea-covered-call-etf-comparison',
+    title: 'TIGER vs KODEX vs SOL — 국내 커버드콜 ETF 비교',
+    description:
+      'ISA·연금계좌에서 매수 가능한 국내 상장 커버드콜 ETF를 운용사·전략·보수·분배 안정성 관점에서 비교하는 방법을 정리합니다.',
+    publishedAt: '2026-04-18',
+    updatedAt: '2026-05-18',
+    readingMinutes: 9,
+    faq: [
+      {
+        question: '국내 커버드콜 ETF만으로 QQQI와 같은 효과를 낼 수 있나요?',
+        answer: '완전히 동일하지는 않습니다. 운용 전략·오버레이 비율·보수·분배 정책이 다릅니다. 다만 나스닥100·S&P500 등 같은 기초 지수를 추종하는 국내 상품을 골라 ISA에서 운용하면 세금 측면에서 미국 직접 투자보다 유리한 경우가 많습니다.',
+      },
+      {
+        question: '데일리타겟 ETF는 ISA에 넣어도 되나요?',
+        answer: '가능하지만 장기 NAV 감소 리스크가 큽니다. ISA 비과세 혜택이 있어도 원금이 줄면 분배금 절대액도 함께 줄어듭니다. 3년 의무 기간 동안 NAV 추이와 분배 안정성을 운용사 공시로 확인한 뒤 결정하세요.',
+      },
+      {
+        question: '국내 ETF 선택 시 거래량이 왜 중요한가요?',
+        answer: '호가 스프레드가 넓으면 매수·매도 시마다 비용이 발생합니다. 월 적립식이라도 매월 매수하므로 유동성이 좋은 상품이 장기적으로 유리할 수 있습니다. KRX에서 일평균 거래대금을 확인하세요.',
+      },
+    ],
+  },
+  {
+    slug: 'monthly-etf-vs-dividend-stocks',
+    title: '월배당 ETF vs 배당주 — 무엇이 다른가',
+    description:
+      '월배당 ETF와 개별 배당주의 수익 구조, 세금, 리스크, 관리 부담을 비교하고 어떤 투자자에게 어떤 방식이 맞는지 정리합니다.',
+    publishedAt: '2026-05-01',
+    updatedAt: '2026-05-18',
+    readingMinutes: 8,
+    faq: [
+      {
+        question: '배당주가 월배당 ETF보다 항상 유리한가요?',
+        answer: '그렇지 않습니다. 우량 배당주는 장기 자본차익+배당 성장이 가능하지만, 종목 리스크·배당 삭감·분기 배당 등 현금흐름이 불규칙합니다. 월배당 ETF는 분산·월 단위 분배·소액 접근이 쉽지만, 커버드콜형은 상승 제한·NAV 리스크가 있습니다.',
+      },
+      {
+        question: '둘 다 포트폴리오에 넣어도 되나요?',
+        answer: '네, 많은 투자자가 성장형 인덱스 + 커버드콜 ETF + (소액) 우량 배당주를 혼합합니다. 비중은 나이·목표·세금 상황에 따라 달라집니다.',
+      },
+      {
+        question: '시뮬레이터에 배당주도 넣을 수 있나요?',
+        answer: '네. "새 종목"으로 추가하고 연 배당률·연 상승률·월 적립금을 입력하면 ETF와 동일하게 시뮬레이션할 수 있습니다.',
+      },
+    ],
+  },
+  {
+    slug: 'financial-income-tax-strategy',
+    title: '금융소득 종합과세 2,000만원 — 월배당 투자자 대응법',
+    description:
+      '금융소득 종합과세 기준과 포함·제외 항목, 월배당 ETF 투자자가 2,000만원 한도를 관리하는 실무 전략을 정리합니다.',
+    publishedAt: '2026-05-08',
+    updatedAt: '2026-05-18',
+    readingMinutes: 9,
+    faq: [
+      {
+        question: 'ISA 분배금은 2,000만원에 포함되나요?',
+        answer: 'ISA 만기(3년+) 해지 전까지는 일반적으로 분배금이 금융소득 합산에 포함되지 않습니다. 만기 해지 시 비과세 한도·분리과세 등 ISA 규정에 따라 과세됩니다. ISA 중도 해지 시 혜택이 소급 취소될 수 있습니다.',
+      },
+      {
+        question: 'DRIP을 하면 종합과세를 피할 수 있나요?',
+        answer: '일반계좌에서는 DRIP 여부와 관계없이 배당 발생 시점에 배당소득으로 과세됩니다. DRIP은 현금 인출만 미루는 것이지 과세 이연이 아닙니다.',
+      },
+      {
+        question: '시뮬레이터에서 종합과세를 반영할 수 있나요?',
+        answer: '자동 판별은 하지 않습니다. 2,000만원 초과 시나리오를 보려면 배당세율을 15.4%보다 높게(예: 20~35%) 입력해 보수적으로 시뮬레이션할 수 있습니다.',
+      },
+    ],
+  },
+  {
+    slug: 'fx-rate-and-dividend-returns',
+    title: '환율 변동이 월배당 ETF 수익에 미치는 영향',
+    description:
+      '미국 상장 ETF 투자 시 환율이 평가금·배당·적립 매수에 미치는 영향과, 시뮬레이터로 시나리오별 비교하는 방법을 정리합니다.',
+    publishedAt: '2026-05-12',
+    updatedAt: '2026-05-18',
+    readingMinutes: 7,
+    faq: [
+      {
+        question: '원화가 약세(환율 상승)면 월배당 ETF 수익이 항상 늘어나나요?',
+        answer: '원화 기준 평가금·배당 원화액은 늘어날 수 있지만, 같은 원화로 USD ETF를 살 때는 고환율이 불리합니다. 순효과는 매수 시점·보유 기간·환율 변동 경로에 따라 달라집니다.',
+      },
+      {
+        question: '국내 상장 ETF는 환율 걱정이 없나요?',
+        answer: '원화로 거래되므로 투자자가 직접 환전하지 않아도, 기초자산이 미국 시장이면 NAV에 환율·해외 시장 변동이 반영됩니다. 완전히 환율과 무관하지는 않습니다.',
+      },
+      {
+        question: '시뮬레이터 환율은 어떻게 설정하나요?',
+        answer: '설정 패널의 USD→KRW에서 직접 입력하거나 ↻ 버튼으로 최신 환율을 불러올 수 있습니다. 전 기간 고정 환율 가정이므로 1,300/1,400/1,500 등 여러 값으로 나눠 실행해 비교하세요.',
+      },
+    ],
+  },
+  {
+    slug: 'pension-isa-general-account',
+    title: '연금저축 vs ISA vs 일반계좌 — 월배당 ETF 어디에?',
+    description:
+      '월배당 ETF 투자 시 일반계좌·ISA·연금저축·IRP의 세금·유동성·한도 차이와 실무 배분 순서를 정리합니다.',
+    publishedAt: '2026-05-18',
+    readingMinutes: 9,
+    faq: [
+      {
+        question: '월배당 ETF는 어느 계좌에 먼저 넣어야 하나요?',
+        answer: '일반적으로 연금저축·IRP 세액공제 한도 → ISA(3년+ 유지 가능한 국내 ETF) → 일반계좌(해외 직접·한도 초과분) 순을 참고합니다. 다만 유동성·나이·소득에 따라 달라질 수 있습니다.',
+      },
+      {
+        question: 'QQQI를 ISA에 넣을 수 있나요?',
+        answer: '아니요. QQQI는 미국 상장 ETF이므로 ISA 매수가 불가합니다. ISA에는 TIGER·KODEX 등 국내 상장 커버드콜 ETF를 넣을 수 있습니다.',
+      },
+      {
+        question: '시뮬레이터로 계좌별 차이를 볼 수 있나요?',
+        answer: '같은 ETF를 두 번 추가하고 계좌 유형(일반/ISA)과 배당세율(15.4% vs 0%·9.9%)만 다르게 설정하면 누적 세후 배당·최종 평가금을 비교할 수 있습니다.',
+      },
+    ],
+  },
 ];
 
 const bodyImports: Record<string, () => Promise<{ default: React.ReactNode }>> = {
@@ -139,6 +276,12 @@ const bodyImports: Record<string, () => Promise<{ default: React.ReactNode }>> =
   'covered-call-etf-comparison': () => import('./body-covered-call-etf-comparison'),
   'monthly-dividend-portfolio-scenarios': () => import('./body-monthly-dividend-portfolio-scenarios'),
   'us-dividend-tax-guide': () => import('./body-us-dividend-tax-guide'),
+  'drip-compound-effect': () => import('./body-drip-compound-effect'),
+  'korea-covered-call-etf-comparison': () => import('./body-korea-covered-call-etf-comparison'),
+  'monthly-etf-vs-dividend-stocks': () => import('./body-monthly-etf-vs-dividend-stocks'),
+  'financial-income-tax-strategy': () => import('./body-financial-income-tax-strategy'),
+  'fx-rate-and-dividend-returns': () => import('./body-fx-rate-and-dividend-returns'),
+  'pension-isa-general-account': () => import('./body-pension-isa-general-account'),
 };
 
 export function loadGuideBody(slug: string): Promise<React.ReactNode> | null {

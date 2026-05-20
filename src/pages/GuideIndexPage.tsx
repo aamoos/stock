@@ -7,11 +7,11 @@ export function GuideIndexPage() {
   return (
     <PageLayout
       title="가이드"
-      subtitle="월배당 ETF 투자에 참고가 되는 글을 모았습니다."
+      subtitle="커버드콜 ETF, ISA 절세, 세금, DRIP, 포트폴리오까지 — 월배당 투자 가이드 11편."
     >
       <SEO
         title="월배당 ETF 투자 가이드"
-        description="커버드콜 ETF 기초부터 ISA 절세 전략, 포트폴리오 시나리오, 세금 완벽 정리까지. 월배당 ETF 투자에 참고가 되는 가이드를 모았습니다."
+        description="커버드콜 ETF 기초부터 ISA·연금 절세, DRIP 복리, 국내 ETF 비교, 금융소득 종합과세, 환율 영향까지. 월배당 ETF 투자 가이드 11편."
         canonical="/guide"
       />
       <div className="guide-list">
