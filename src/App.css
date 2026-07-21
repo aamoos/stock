@@ -1253,6 +1253,51 @@ tbody tr:hover {
   line-height: 1.6;
 }
 
+.breadcrumbs {
+  margin: 0 0 20px;
+}
+
+.breadcrumbs-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+
+.breadcrumbs-item a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.breadcrumbs-item a:hover {
+  color: #4f8cff;
+}
+
+.breadcrumbs-item span[aria-current='page'] {
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.breadcrumbs-sep {
+  color: var(--text-footer-nav-dot);
+}
+
 .doc-content {
   line-height: 1.75;
   color: var(--text-doc-content);
@@ -1392,6 +1437,16 @@ tbody tr:hover {
   margin-top: 40px;
   padding-top: 32px;
   border-top: 1px solid var(--border-faq);
+}
+
+.home-faq {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.home-faq h2 {
+  margin-bottom: 16px;
 }
 
 .faq-list {

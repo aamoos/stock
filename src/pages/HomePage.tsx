@@ -5,6 +5,7 @@ import { clearLocalStorageKeys, useLocalStorage } from '../useLocalStorage';
 import { useTheme } from '../hooks/useTheme';
 import { AdSlot } from '../AdSlot';
 import { HomeIntro } from '../components/HomeIntro';
+import { HomeFaq } from '../components/HomeFaq';
 import { SEO } from '../components/SEO';
 import { SiteFooter } from '../components/SiteFooter';
 import type { WorkerOutput, ChartPoint, PerHoldingRow } from '../workers/simulator.worker';
@@ -620,6 +621,8 @@ export function HomePage() {
             <AdSlot slot={AD_SLOT_BOTTOM} format="auto" />
           </>
         )}
+
+        <HomeFaq />
 
         <SiteFooter />
       </main>

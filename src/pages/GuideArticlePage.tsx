@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { PageLayout } from '../components/PageLayout';
 import { SEO } from '../components/SEO';
+import { Breadcrumbs } from '../components/Breadcrumbs';
 import { AdSlot } from '../AdSlot';
 import { AuthorByline } from '../components/AuthorByline';
 import { getGuide, GUIDES, loadGuideBody } from '../guides/articles';
+import { GuideBodyContext } from '../guides/GuideBodyContext';
 import type { ReactNode } from 'react';
 
 const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
@@ -12,14 +14,29 @@ const AD_SLOT_MIDDLE = import.meta.env.VITE_ADSENSE_SLOT_MIDDLE;
 export function GuideArticlePage() {
   const { slug = '' } = useParams();
   const guide = getGuide(slug);
-  const [body, setBody] = useState<ReactNode>(null);
+  const getBodySync = useContext(GuideBodyContext);
+  // 프리렌더(SSR) 시에는 컨텍스트에서 본문을 동기적으로 얻어 첫 렌더에 포함시킨다.
+  const [body, setBody] = useState<ReactNode>(() => getBodySync?.(slug) ?? null);
+  const [renderedSlug, setRenderedSlug] = useState(slug);
 
+  // 클라이언트에서 slug이 바뀌면(가이드 간 이동) 렌더 도중 본문 상태를 초기화한다.
+  if (slug !== renderedSlug) {
+    setRenderedSlug(slug);
+    setBody(getBodySync?.(slug) ?? null);
+  }
+
+  // 아직 본문이 없으면(클라이언트 초기 진입) 동적 import로 비동기 로드한다.
   useEffect(() => {
-    if (!guide) return;
+    if (!guide || body != null) return;
+    let cancelled = false;
     const promise = loadGuideBody(slug);
-    if (!promise) return;
-    promise.then(setBody);
-  }, [slug, guide]);
+    promise?.then((b) => {
+      if (!cancelled) setBody(b);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, guide, body]);
 
   if (!guide) {
     return (
@@ -90,6 +107,13 @@ export function GuideArticlePage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <Breadcrumbs
+        items={[
+          { label: '홈', to: '/' },
+          { label: '가이드', to: '/guide' },
+          { label: guide.title },
+        ]}
+      />
       <div className="guide-meta guide-meta-top">
         <span>{guide.publishedAt}</span>
         {guide.updatedAt && guide.updatedAt !== guide.publishedAt && (

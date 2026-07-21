@@ -37,6 +37,9 @@ export function SEO({
       {description && <meta property="og:description" content={description} />}
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="월배당 자산 시뮬레이터 대표 이미지" />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="ko_KR" />
 
