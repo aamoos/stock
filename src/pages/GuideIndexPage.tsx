@@ -8,11 +8,11 @@ export function GuideIndexPage() {
   return (
     <PageLayout
       title="가이드"
-      subtitle="커버드콜 ETF, ISA 절세, 세금, DRIP, 포트폴리오까지 — 월배당 투자 가이드 11편."
+      subtitle={`직접 계산한 결과와 세금·상품 설명 — 월배당 투자 가이드 ${GUIDES.length}편.`}
     >
       <SEO
         title="월배당 ETF 투자 가이드"
-        description="커버드콜 ETF 기초부터 ISA·연금 절세, DRIP 복리, 국내 ETF 비교, 금융소득 종합과세, 환율 영향까지. 월배당 ETF 투자 가이드 11편."
+        description="월배당 100만원까지 걸리는 기간, 주가 하락 때 배당 재투자, 환율 영향 등을 직접 계산한 글과 세금·커버드콜 ETF 설명을 모았습니다."
         canonical="/guide"
       />
       <Breadcrumbs
@@ -31,11 +31,10 @@ export function GuideIndexPage() {
           필요한 배경 지식을 단계별로 정리했습니다.
         </p>
         <p>
-          각 글은 <b>FAQ</b>와 <Link to="/">홈 시뮬레이터</Link> 연동 예시를 포함합니다.
+          숫자가 들어간 계산 글의 표는 <Link to="/">홈 시뮬레이터</Link>와 같은 계산식으로 만들었습니다.
           처음이라면 <Link to="/guide/covered-call-etf-basics">커버드콜 ETF 기초</Link>부터
           읽고, 절세가 궁금하면{' '}
-          <Link to="/guide/isa-account-dividend-tax">ISA 절세</Link> 또는{' '}
-          <Link to="/guide/pension-isa-general-account">계좌 선택 가이드</Link>를
+          <Link to="/guide/isa-account-dividend-tax">ISA 절세</Link>를
           참고하세요.
         </p>
       </section>

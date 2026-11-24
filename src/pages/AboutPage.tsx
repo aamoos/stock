@@ -1,5 +1,6 @@
 import { PageLayout } from '../components/PageLayout';
 import { SEO } from '../components/SEO';
+import { GUIDES } from '../guides/articles';
 
 export function AboutPage() {
   return (
@@ -160,8 +161,8 @@ export function AboutPage() {
             <b>운영 주체</b>: 개인 (소프트웨어 개발자)
           </li>
           <li>
-            <b>가이드</b>: 월배당·커버드콜·세금·포트폴리오 관련 <b>11편</b>의 독립 가이드
-            (<a href="/guide">가이드 목록</a>). 각 글은 FAQ와 시뮬레이터 연동 예시 포함
+            <b>가이드</b>: 월배당·커버드콜·세금·포트폴리오 관련 <b>{GUIDES.length}편</b>
+            (<a href="/guide">가이드 목록</a>). 계산 글의 표는 시뮬레이터와 같은 계산식으로 작성
           </li>
           <li>
             <b>운영 목적</b>: 월배당 ETF 투자를 고민하는 개인 투자자가 실제 숫자로 시뮬레이션해보고
@@ -210,7 +211,7 @@ export function AboutPage() {
       <section>
         <h2>9. 콘텐츠 업데이트 기록</h2>
         <ul>
-          <li><b>2026-11-24</b> — 미국 배당 세금·커버드콜 상품 설명 오류 정정, 가이드 게시일과 운영자 소개 정정, 월배당 목표 계산기 추가</li>
+          <li><b>2026-11-24</b> — 미국 배당 세금·커버드콜 상품 설명 오류 정정, 가이드 게시일과 운영자 소개 정정, 월배당 목표·ISA 비교 계산기 추가, 겹치는 가이드 3편 통합, 직접 계산한 글 6편 작성(신규 4편, 전면 수정 2편)</li>
           <li><b>2026-05-20</b> — 가이드 6편 추가 (DRIP, 국내 ETF 비교, 배당주 비교, 종합과세, 환율, 계좌 선택)</li>
           <li><b>2026-05-06</b> — 기존 가이드 5편 FAQ·메타데이터 보강, About·면책·개인정보 페이지 개선</li>
           <li><b>2026-04-24</b> — 가이드 섹션 최초 공개 (커버드콜 기초, ISA, QQQI 비교, 포트폴리오, 미국 세금)</li>

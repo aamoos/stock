@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes, StaticRouter } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { GoalPage } from './pages/GoalPage';
+import { IsaPage } from './pages/IsaPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
@@ -27,6 +28,7 @@ export function render(url: string): RenderResult {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/goal" element={<GoalPage />} />
+            <Route path="/isa" element={<IsaPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
@@ -65,6 +67,7 @@ export function render(url: string): RenderResult {
 export const PRERENDER_ROUTES: string[] = [
   '/',
   '/goal',
+  '/isa',
   '/about',
   '/contact',
   '/disclaimer',
@@ -84,6 +87,7 @@ export interface SitemapEntry {
 export const SITEMAP: SitemapEntry[] = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
   { loc: '/goal', changefreq: 'monthly', priority: '0.9' },
+  { loc: '/isa', changefreq: 'monthly', priority: '0.9' },
   { loc: '/guide', changefreq: 'weekly', priority: '0.8' },
   ...GUIDES.map((g) => ({
     loc: `/guide/${g.slug}`,

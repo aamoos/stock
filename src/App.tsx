@@ -10,6 +10,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then(m => ({ defaul
 const GuideIndexPage = lazy(() => import('./pages/GuideIndexPage').then(m => ({ default: m.GuideIndexPage })));
 const GuideArticlePage = lazy(() => import('./pages/GuideArticlePage').then(m => ({ default: m.GuideArticlePage })));
 const GoalPage = lazy(() => import('./pages/GoalPage').then(m => ({ default: m.GoalPage })));
+const IsaPage = lazy(() => import('./pages/IsaPage').then(m => ({ default: m.IsaPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/goal" element={<GoalPage />} />
+          <Route path="/isa" element={<IsaPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />

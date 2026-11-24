@@ -8,6 +8,8 @@ export function SiteFooter() {
         <span className="dot">·</span>
         <Link to="/goal">목표 계산기</Link>
         <span className="dot">·</span>
+        <Link to="/isa">ISA 비교</Link>
+        <span className="dot">·</span>
         <Link to="/guide">가이드</Link>
         <span className="dot">·</span>
         <Link to="/about">사용법</Link>

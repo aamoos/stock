@@ -1,4 +1,9 @@
 {
+  "redirects": [
+    { "source": "/guide/pension-isa-general-account", "destination": "/guide/isa-account-dividend-tax", "permanent": true },
+    { "source": "/guide/korea-covered-call-etf-comparison", "destination": "/guide/covered-call-etf-comparison", "permanent": true },
+    { "source": "/guide/monthly-etf-vs-dividend-stocks", "destination": "/guide/covered-call-etf-basics", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

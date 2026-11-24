@@ -18,7 +18,7 @@ const AD_SLOT_BOTTOM = import.meta.env.VITE_ADSENSE_SLOT_BOTTOM;
 
 const STORAGE_KEYS = [
   'holdings', 'months', 'usdKrw', 'usdKrwFxInfo',
-  'reinvest', 'startYm', 'expandedIds', 'hiddenIds', 'goalForm',
+  'reinvest', 'startYm', 'expandedIds', 'hiddenIds', 'goalForm', 'isaForm',
 ];
 
 const EXAMPLE_ID = 'example';

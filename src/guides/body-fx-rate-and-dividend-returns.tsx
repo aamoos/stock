@@ -1,85 +1,72 @@
+import { BarList, CalcTable } from './CalcBlocks';
+import { fxPath } from './calc';
+import { formatKrw } from '../simulator';
+
+const START = 1400;
+const base = { monthlyKrw: 500_000, years: 10, startFx: START, yieldPct: 10, taxPct: 15 };
+const rows = [1100, 1200, 1300, 1400, 1500, 1600, 1700].map((endFx) => ({ endFx, ...fxPath({ ...base, endFx }) }));
+const flat = rows.find((r) => r.endFx === START)!;
+const low = rows.find((r) => r.endFx === 1200)!;
+const high = fxPath({ ...base, startFx: 1600, endFx: 1600 });
+const won = (n: number) => `${formatKrw(n)}원`;
+const change = (v: number) => (v / flat.valueKrw - 1) * 100;
+const diff = (v: number) => `${change(v) > 0 ? '+' : ''}${change(v).toFixed(1)}%`;
+
 export default (
   <>
     <section>
-      <h2>환율, 왜 월배당 투자자에게 중요한가</h2>
+      <h2>결론부터</h2>
       <p>
-        QQQI, JEPQ, SCHD 등 <b>미국 상장 ETF</b>를 원화로 평가하면, 수익은
-        <b>ETF 수익률 × 환율 변동</b> 두 축으로 결정됩니다. 배당금도 USD로 지급되므로
-        원화 기준 월 현금흐름은 환율에 따라 매달 달라질 수 있습니다.
+        매달 같은 원화를 넣는다면 <b>환율이 높으냐 낮으냐보다, 사는 동안 어떻게 움직였느냐</b>가
+        중요합니다. 환율이 10년 내내 1,400원이든 1,600원이든 원화 결과는 {won(flat.valueKrw)}과{' '}
+        {won(high.valueKrw)}으로 같습니다. 비싸게 산 만큼 비싸게 평가되기 때문입니다.
       </p>
       <p>
-        본 시뮬레이터는 <b>전 기간 고정 환율</b>을 가정합니다. 실제와의 차이를 이해하고
-        시나리오별로 환율을 바꿔 돌려보는 것이 좋습니다.
-      </p>
-    </section>
-
-    <section>
-      <h2>환율이 수익에 미치는 3가지 경로</h2>
-      <ol>
-        <li>
-          <b>평가금(자본차익)</b> — USD 자산 가치 × USD/KRW. 원화 약세(환율 상승) 시
-          같은 달러 자산도 원화로는 더 많이 평가됩니다.
-        </li>
-        <li>
-          <b>배당금 원화 환산</b> — 월 배당 $100 × 환율. 1,300원→1,400원이면
-          같은 달러 배당도 원화로는 약 7.7% 증가.
-        </li>
-        <li>
-          <b>월 적립 매수</b> — 원화로 USD ETF를 살 때, 환율이 높으면
-          <b>같은 원화로 더 적은 주식</b>을 삽니다(불리). 낮으면 더 많이 삽니다(유리).
-        </li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>시나리오 예시 (개념)</h2>
-      <p>
-        10년간 ETF USD 수익률이 연 5%, 배당률 연 12%라고 가정할 때:
-      </p>
-      <ul>
-        <li><b>환율 고정 1,300원</b> — 기준 시나리오</li>
-        <li><b>환율 고정 1,500원 (원화 약세)</b> — 최종 원화 평가금·배당 원화액 ↑, 단 초기 고환율 매수는 불리</li>
-        <li><b>환율 고정 1,100원 (원화 강세)</b> — 원화 평가금·배당 ↓, 저환율 매수는 유리</li>
-      </ul>
-      <p>
-        <a href="/">시뮬레이터</a>에서 USD 종목을 넣고 환율만 1,300 / 1,400 / 1,500으로
-        바꿔 120개월 시뮬레이션을 각각 실행해 차이를 확인하세요.
+        반면 1,400원에서 1,200원으로 서서히 내리면 결과는 {won(low.valueKrw)}으로{' '}
+        {Math.abs(change(low.valueKrw)).toFixed(1)}% 줄어듭니다. 환율이{' '}
+        {((1 - 1200 / START) * 100).toFixed(1)}% 내린 것보다는 덜 줄어듭니다. 환율이 내리는 동안
+        더 싸게 샀기 때문입니다.
       </p>
     </section>
 
     <section>
-      <h2>국내 상장 ETF는 환율 영향이 다른가</h2>
+      <h2>10년 뒤 환율별 결과</h2>
       <p>
-        TIGER·KODEX 등 <b>국내 상장</b> 미국 연계 ETF는 원화로 거래되므로
-        투자자 입장에서 직접적인 환율 노출은 운용사·ETF NAV 수준에서 반영됩니다.
-        ISA 세제 혜택과 함께 쓰기 편하지만, 기초자산이 미국 시장이면
-        <b>간접적으로 환율·미국 시장 리스크</b>는 존재합니다.
+        월 50만원을 10년 동안 달러 월배당 ETF에 넣고, 환율은 {START.toLocaleString('ko-KR')}원에서
+        마지막 값까지 일정하게 움직인다고 가정했습니다. 연 배당률 10%, 달러 주가 0%, 세율 15%입니다.
       </p>
+      <CalcTable
+        caption="원화로 환산한 결과"
+        head={['10년 뒤 환율', '평가금', '환율 그대로와 차이', '마지막 달 세후 배당']}
+        rows={rows.map((r) => [
+          `${r.endFx.toLocaleString('ko-KR')}원`, won(r.valueKrw), diff(r.valueKrw), won(r.monthlyDividendKrw),
+        ])}
+      />
+      <BarList
+        caption="10년 뒤 원화 평가금"
+        rows={rows.map((r) => ({ label: `${r.endFx.toLocaleString('ko-KR')}원`, value: r.valueKrw, display: won(r.valueKrw) }))}
+      />
+    </section>
+
+    <section>
+      <h2>국내 상장 ETF도 환율 영향을 받을까</h2>
       <p>
-        <a href="/guide/korea-covered-call-etf-comparison">국내 커버드콜 ETF 비교</a>에서
-        국내 vs 해외 직접 투자 트레이드오프를 함께 보세요.
+        원화로 거래해도 기초자산이 미국 주식이면 환율이 가격에 반영됩니다. 이름에 <b>(H)</b>가 붙은
+        상품은 환율 변동을 줄이는 환헤지형이고, 없으면 대체로 환율에 노출됩니다. 정확한 방식은 운용사
+        상품 설명에서 확인하세요.
       </p>
     </section>
 
     <section>
-      <h2>환율 리스크 관리 (참고)</h2>
-      <ul>
-        <li><b>분산</b> — 국내 상장 + 미국 직접, 또는 KRW·USD 자산 혼합</li>
-        <li><b>적립식</b> — 환율 평균 효과 (완벽한 헤지는 아님)</li>
-        <li><b>목표 환율 구간</b> — 극단적 환율에서 일시적 매수·매도는 예측 어려움. 무리한 타이밍 지양</li>
-        <li><b>시뮬레이션</b> — 보수 시나리오에 "원화 강세" 가정(낮은 환율) 추가</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>시뮬레이터 환율 기능</h2>
+      <h2>시뮬레이터로 볼 때</h2>
       <p>
-        홈 화면 설정 패널의 <b>USD → KRW</b>에서 환율을 입력하거나 ↻ 버튼으로
-        최신 환율을 불러올 수 있습니다. 불러온 환율은 1시간 캐시됩니다.
+        <a href="/">시뮬레이터</a>는 전 기간 같은 환율을 쓰고 USD 종목의 적립금을 <b>달러로</b>{' '}
+        입력받습니다. 그래서 환율만 올리면 낸 돈과 결과가 함께 커집니다. 환율 변화에 따른 유불리는
+        위 표를 참고하세요.
       </p>
       <p className="muted">
-        환율·ETF 가격은 변동합니다. 본 도구는 고정 환율 가정의 계산기이며
-        투자 권유가 아닙니다. <a href="/disclaimer">면책조항</a> 참조.
+        환율이 일정하게 움직인다는 가정이며 환전 수수료는 제외했습니다. 투자 권유가 아닙니다.{' '}
+        <a href="/disclaimer">면책조항</a> 참조.
       </p>
     </section>
   </>

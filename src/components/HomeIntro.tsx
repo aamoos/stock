@@ -15,6 +15,7 @@ export function HomeIntro() {
       <p>
         받고 싶은 배당금이 정해져 있다면{' '}
         <Link to="/goal">월배당 목표 계산기</Link>로 필요한 투자금을 거꾸로 계산해 보세요.
+        계좌를 고민 중이라면 <Link to="/isa">ISA 비교 계산기</Link>가 있습니다.
       </p>
 
       <h3>시작 방법</h3>
@@ -27,8 +28,8 @@ export function HomeIntro() {
       <h3>투자 가이드</h3>
       <p>
         계산기만으로는 부족한 배경 지식은 아래 가이드에서 정리했습니다.
-        커버드콜 ETF 구조, ISA 절세, QQQI·JEPQ·QYLD 비교, 포트폴리오 시나리오,
-        미국 배당 세금까지 <b>{GUIDES.length}편</b>의 글로 다룹니다.
+        배당률·주가 하락·환율·시작 시점별 결과를 직접 계산한 글을 포함해{' '}
+        <b>{GUIDES.length}편</b>을 다룹니다.
       </p>
       <ul className="home-intro-guides">
         {GUIDES.map((g) => (

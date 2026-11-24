@@ -111,6 +111,19 @@ export default (
     </section>
 
     <section>
+      <h2>일반 배당주와 무엇이 다른가</h2>
+      <ul>
+        <li><b>돈이 나오는 곳</b> — 배당주는 기업 이익, 커버드콜 ETF는 옵션 프리미엄이 중심입니다. 분배금 일부는 원금을 돌려주는 성격일 수 있습니다.</li>
+        <li><b>받는 주기</b> — 배당주는 분기나 연 단위가 많고, 월배당 ETF는 매달입니다.</li>
+        <li><b>위험</b> — 배당주는 특정 기업의 배당 삭감, 커버드콜 ETF는 상승 제한과 NAV 감소가 핵심 위험입니다.</li>
+      </ul>
+      <p>
+        배당과 주가를 합친 총수익이 같을 때의 세금 차이는{' '}
+        <a href="/guide/dividend-vs-growth-same-return">직접 계산한 글</a>을 참고하세요.
+      </p>
+    </section>
+
+    <section>
       <h2>확인에 쓴 자료</h2>
       <ul>
         <li><a href="https://www.globalxetfs.com/funds/qyld" target="_blank" rel="noopener noreferrer">Global X — QYLD 상품 안내</a></li>

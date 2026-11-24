@@ -1,3 +1,19 @@
+import { CalcTable } from './CalcBlocks';
+import { formatKrw } from '../simulator';
+import { FINANCIAL_INCOME_LIMIT_KRW, formatMonths, monthsToGoal } from '../goal';
+
+// 월 세전 배당이 2,000만원/12에 닿는 시점. 계산 함수가 세후 기준이라 목표도 세후로 바꿔 넣는다.
+const NET = 1 - 0.154;
+const rows = [4, 6, 8, 10, 12].map((y) => ({
+  y,
+  principal: FINANCIAL_INCOME_LIMIT_KRW / (y / 100),
+  months: monthsToGoal({
+    targetMonthlyKrw: (FINANCIAL_INCOME_LIMIT_KRW / 12) * NET,
+    annualYieldPct: y, taxRatePct: 15.4, currentKrw: 0,
+    monthlyContributionKrw: 1_000_000, annualGrowthPct: 0, reinvest: true,
+  }),
+}));
+
 export default (
   <>
     <section>
@@ -53,6 +69,25 @@ export default (
     </section>
 
     <section>
+      <h2>얼마를 넣으면 2,000만원을 넘을까</h2>
+      <p>
+        다른 이자와 배당이 없다고 할 때, 배당률별로 연간 세전 배당이 2,000만원에 닿는 평가금과
+        월 100만원씩 모을 때 걸리는 기간입니다.
+      </p>
+      <CalcTable
+        caption="금융소득 2,000만원에 닿는 평가금 (일반계좌, 주가 0%, 세후 배당 재투자)"
+        head={['연 배당률', '평가금', '월 100만원 적립 시']}
+        rows={rows.map((r) => [
+          `${r.y}%`, `${formatKrw(r.principal)}원`, r.months === null ? '50년 초과' : formatMonths(r.months),
+        ])}
+      />
+      <p>
+        배당률 12% 상품은 약 {formatKrw(rows[4].principal)}원이면 기준에 닿습니다. 같은 돈을 배당률 4%
+        상품에 넣었다면 기준의 3분의 1 수준입니다. 이자와 다른 배당이 있다면 더 빨리 닿습니다.
+      </p>
+    </section>
+
+    <section>
       <h2>실무 대응 전략 5가지</h2>
       <ol>
         <li>
@@ -87,8 +122,7 @@ export default (
       </p>
       <p>
         ISA·연금 계좌는 각각 세율 0%·9.9% 등으로 별도 종목 추가해 비교하세요.{" "}
-        <a href="/guide/isa-account-dividend-tax">ISA 가이드</a>,
-        <a href="/guide/pension-isa-general-account"> 연금 vs ISA vs 일반계좌</a> 참조.
+        <a href="/guide/isa-account-dividend-tax">ISA 가이드</a> 참조.
       </p>
     </section>
 

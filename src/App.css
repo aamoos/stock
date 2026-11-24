@@ -1607,6 +1607,60 @@ tbody tr:hover {
   color: var(--text-primary);
 }
 
+/* ============ Calculated articles ============ */
+
+.doc-content th:nth-child(2),
+.doc-content td:nth-child(2) {
+  text-align: right;
+}
+
+.calc-figure {
+  margin: 12px 0 18px;
+}
+
+.calc-figure figcaption {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bar-list {
+  list-style: none;
+}
+
+.doc-content .bar-list {
+  padding: 0;
+}
+
+.bar-list li {
+  display: grid;
+  grid-template-columns: 84px 1fr 84px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.bar-label {
+  color: var(--text-secondary);
+}
+
+.bar-value {
+  color: var(--text-primary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar-track {
+  border-left: 1px solid var(--border-panel);
+}
+
+.bar-fill {
+  display: block;
+  height: 14px;
+  border-radius: 0 4px 4px 0;
+  background: #4f8cff;
+}
+
 /* ============ Responsive: Drawer on narrow screens ============ */
 
 @media (max-width: 1024px) {
