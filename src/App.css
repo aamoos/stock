@@ -1484,6 +1484,129 @@ tbody tr:hover {
   margin: 0;
 }
 
+/* ============ Goal calculator ============ */
+
+.goal-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  border: 1px solid #4f8cff;
+  border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.goal-banner span {
+  color: #4f8cff;
+  font-size: 13px;
+}
+
+.goal-banner:hover {
+  background: var(--bg-guide-card-hover);
+}
+
+.example-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.goal-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--border-panel);
+  border-radius: 14px;
+  background: var(--bg-card);
+}
+
+.goal-form label {
+  font-size: 13px;
+  min-width: 0;
+}
+
+.goal-form label.toggle {
+  grid-column: 1 / -1;
+  font-size: 13px;
+}
+
+.goal-form input:not([type='checkbox']),
+.goal-form select {
+  width: 100%;
+  min-width: 0;
+  font-size: 16px;
+}
+
+.goal-result {
+  margin: 16px 0 28px;
+  padding: 22px 20px;
+  border: 1px solid var(--border-panel);
+  border-radius: 14px;
+  background: var(--bg-card);
+  text-align: center;
+}
+
+.doc-content .goal-result p {
+  margin: 0 0 8px;
+}
+
+.doc-content .goal-result .goal-result-value {
+  font-size: clamp(32px, 9vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.doc-content .goal-result .goal-result-sub,
+.doc-content .goal-result .goal-result-note {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.doc-content .goal-result .goal-result-time {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.doc-content .goal-result .goal-result-warn {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.goal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+
+.goal-actions .btn {
+  padding: 12px 18px;
+  font-size: 14px;
+}
+
+.goal-btn-secondary {
+  background: var(--border-panel);
+  color: var(--text-primary);
+}
+
 /* ============ Responsive: Drawer on narrow screens ============ */
 
 @media (max-width: 1024px) {

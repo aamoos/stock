@@ -21,8 +21,8 @@ export const GUIDES: GuideArticle[] = [
     title: '커버드콜 ETF란? 고배당의 원리와 장단점',
     description:
       'QQQI, TIGER 나스닥100 커버드콜 같은 상품의 기본 구조와 장·단점, 그리고 장기 투자 시 주의해야 할 리스크를 정리합니다.',
-    publishedAt: '2025-11-12',
-    updatedAt: '2026-05-06',
+    publishedAt: '2026-04-24',
+    updatedAt: '2026-11-24',
     readingMinutes: 7,
     faq: [
       {
@@ -35,7 +35,7 @@ export const GUIDES: GuideArticle[] = [
       },
       {
         question: 'NAV가 감소하면 분배금도 줄어드나요?',
-        answer: '네, 커버드콜 ETF의 분배금은 주가(NAV)에 비례하는 구조이므로 NAV가 지속 하락하면 분배금 절대 금액도 함께 줄어듭니다. 공격적 100% 오버레이 상품(QYLD, 데일리타겟 등)에서 이 현상이 두드러질 수 있습니다.',
+        answer: '네, 커버드콜 ETF의 분배금은 주가(NAV)에 비례하는 구조이므로 NAV가 지속 하락하면 분배금 절대 금액도 함께 줄어듭니다. 100% 오버레이 상품(QYLD 등)에서 이 현상이 두드러질 수 있습니다.',
       },
     ],
   },
@@ -44,8 +44,8 @@ export const GUIDES: GuideArticle[] = [
     title: 'ISA 계좌로 월배당 ETF 절세하기: 한도·과세 정리',
     description:
       'ISA(개인종합자산관리계좌)의 비과세·분리과세 구조를 이해하고, 월배당 ETF 투자에서 어떻게 세금을 최소화할지 정리합니다.',
-    publishedAt: '2025-12-03',
-    updatedAt: '2026-05-06',
+    publishedAt: '2026-04-24',
+    updatedAt: '2026-11-24',
     readingMinutes: 8,
     faq: [
       {
@@ -67,8 +67,8 @@ export const GUIDES: GuideArticle[] = [
     title: 'QQQI · JEPQ · QYLD 커버드콜 ETF 전격 비교',
     description:
       '같은 나스닥100 기반이지만 구조가 다른 QQQI, JEPQ, QYLD를 분배율·총수익·세금·상승 여지 관점에서 정리합니다.',
-    publishedAt: '2026-01-08',
-    updatedAt: '2026-05-06',
+    publishedAt: '2026-04-24',
+    updatedAt: '2026-11-24',
     readingMinutes: 9,
     faq: [
       {
@@ -81,7 +81,7 @@ export const GUIDES: GuideArticle[] = [
       },
       {
         question: '한국 투자자에게 세금 효율이 가장 좋은 상품은 무엇인가요?',
-        answer: '한국 투자자 기준으로는 미국 원천징수 15%가 공통 적용되므로 미국 내 세금 구조 차이의 영향이 제한적입니다. 다만 ISA 계좌를 활용해 국내 상장 커버드콜 ETF(TIGER 나스닥100 커버드콜 등)에 투자하면, 미국 원천징수 없이 분배금을 만기까지 과세 이연할 수 있어 실질적으로 가장 세금 효율이 높습니다.',
+        answer: '한국 투자자 기준으로는 미국 원천징수 15%가 공통 적용되므로 미국 내 세금 구조 차이의 영향이 제한적입니다. 다만 ISA 계좌를 활용해 국내 상장 커버드콜 ETF(TIGER 나스닥100 커버드콜 등)에 투자하면, 국내 배당소득세를 만기까지 이연할 수 있어 유리할 수 있습니다. 다만 2025년부터 해외에서 낸 세금은 먼저 빠진 금액이 분배될 수 있으므로 증권사 공지를 확인하세요.',
       },
     ],
   },
@@ -90,8 +90,8 @@ export const GUIDES: GuideArticle[] = [
     title: '월배당 포트폴리오 3가지 시나리오 (공격 · 균형 · 안정)',
     description:
       '목표와 투자 성향에 따라 월배당 포트폴리오를 어떻게 구성할지, 공격형·균형형·안정형 3가지 예시를 수치와 함께 정리합니다.',
-    publishedAt: '2026-02-14',
-    updatedAt: '2026-05-06',
+    publishedAt: '2026-04-24',
+    updatedAt: '2026-11-24',
     readingMinutes: 10,
     faq: [
       {
@@ -113,13 +113,13 @@ export const GUIDES: GuideArticle[] = [
     title: '미국 배당주 세금 완벽 정리 (일반계좌 · ISA · 연금계좌)',
     description:
       '미국 배당주와 미국 상장 ETF의 배당 과세 구조를 원천징수부터 국내 합산·연말정산까지 계좌 유형별로 정리합니다.',
-    publishedAt: '2026-03-21',
-    updatedAt: '2026-05-06',
+    publishedAt: '2026-04-24',
+    updatedAt: '2026-11-24',
     readingMinutes: 8,
     faq: [
       {
         question: '미국 주식 배당을 받으면 한국에서도 세금을 내야 하나요?',
-        answer: '미국에서 15% 원천징수 후, 한국 기준 세율 15.4%와의 차이인 약 0.4%를 한국에서 추가 납부합니다(외국납부세액공제 적용). 연간 금융소득이 2,000만원을 초과하면 종합소득세 신고 대상이 되어 누진세율이 추가 적용될 수 있습니다.',
+        answer: '연간 금융소득이 2,000만원 이하이고 국내 증권사로 투자했다면, 미국 원천징수 15%가 한국 소득세율 14%보다 높아 국내에서 추가로 원천징수하지 않습니다. 2,000만원을 초과하면 다음 해 5월 종합소득세 신고 대상이 되며, 미국에서 낸 세금은 외국납부세액공제로 한도 안에서 공제받을 수 있습니다.',
       },
       {
         question: 'ISA와 연금저축 중 어디에 먼저 넣는 게 유리한가요?',
@@ -136,8 +136,7 @@ export const GUIDES: GuideArticle[] = [
     title: 'DRIP 배당 재투자, 복리 효과 완벽 가이드',
     description:
       '배당 재투자(DRIP)가 장기 자산에 미치는 복리 효과, 켜야 할 때와 끄는 것이 나을 때, 커버드콜 ETF에서의 주의점을 정리합니다.',
-    publishedAt: '2026-04-02',
-    updatedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
     readingMinutes: 8,
     faq: [
       {
@@ -159,8 +158,8 @@ export const GUIDES: GuideArticle[] = [
     title: 'TIGER vs KODEX vs SOL — 국내 커버드콜 ETF 비교',
     description:
       'ISA·연금계좌에서 매수 가능한 국내 상장 커버드콜 ETF를 운용사·전략·보수·분배 안정성 관점에서 비교하는 방법을 정리합니다.',
-    publishedAt: '2026-04-18',
-    updatedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
+    updatedAt: '2026-11-24',
     readingMinutes: 9,
     faq: [
       {
@@ -168,8 +167,8 @@ export const GUIDES: GuideArticle[] = [
         answer: '완전히 동일하지는 않습니다. 운용 전략·오버레이 비율·보수·분배 정책이 다릅니다. 다만 나스닥100·S&P500 등 같은 기초 지수를 추종하는 국내 상품을 골라 ISA에서 운용하면 세금 측면에서 미국 직접 투자보다 유리한 경우가 많습니다.',
       },
       {
-        question: '데일리타겟 ETF는 ISA에 넣어도 되나요?',
-        answer: '가능하지만 장기 NAV 감소 리스크가 큽니다. ISA 비과세 혜택이 있어도 원금이 줄면 분배금 절대액도 함께 줄어듭니다. 3년 의무 기간 동안 NAV 추이와 분배 안정성을 운용사 공시로 확인한 뒤 결정하세요.',
+        question: '타겟데일리커버드콜 ETF는 ISA에 넣어도 되나요?',
+        answer: '국내 상장 상품이면 가능합니다. 상품마다 옵션 매도 비중이 다르고, 비중이 높을수록 상승 여지가 줄어듭니다. ISA 비과세 혜택이 있어도 원금이 줄면 분배금 절대액도 함께 줄어듭니다. 3년 의무 기간 동안 NAV 추이와 분배 안정성을 운용사 공시로 확인한 뒤 결정하세요.',
       },
       {
         question: '국내 ETF 선택 시 거래량이 왜 중요한가요?',
@@ -182,8 +181,8 @@ export const GUIDES: GuideArticle[] = [
     title: '월배당 ETF vs 배당주 — 무엇이 다른가',
     description:
       '월배당 ETF와 개별 배당주의 수익 구조, 세금, 리스크, 관리 부담을 비교하고 어떤 투자자에게 어떤 방식이 맞는지 정리합니다.',
-    publishedAt: '2026-05-01',
-    updatedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
+    updatedAt: '2026-11-24',
     readingMinutes: 8,
     faq: [
       {
@@ -205,8 +204,7 @@ export const GUIDES: GuideArticle[] = [
     title: '금융소득 종합과세 2,000만원 — 월배당 투자자 대응법',
     description:
       '금융소득 종합과세 기준과 포함·제외 항목, 월배당 ETF 투자자가 2,000만원 한도를 관리하는 실무 전략을 정리합니다.',
-    publishedAt: '2026-05-08',
-    updatedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
     readingMinutes: 9,
     faq: [
       {
@@ -228,8 +226,7 @@ export const GUIDES: GuideArticle[] = [
     title: '환율 변동이 월배당 ETF 수익에 미치는 영향',
     description:
       '미국 상장 ETF 투자 시 환율이 평가금·배당·적립 매수에 미치는 영향과, 시뮬레이터로 시나리오별 비교하는 방법을 정리합니다.',
-    publishedAt: '2026-05-12',
-    updatedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
     readingMinutes: 7,
     faq: [
       {
@@ -251,7 +248,7 @@ export const GUIDES: GuideArticle[] = [
     title: '연금저축 vs ISA vs 일반계좌 — 월배당 ETF 어디에?',
     description:
       '월배당 ETF 투자 시 일반계좌·ISA·연금저축·IRP의 세금·유동성·한도 차이와 실무 배분 순서를 정리합니다.',
-    publishedAt: '2026-05-18',
+    publishedAt: '2026-05-20',
     readingMinutes: 9,
     faq: [
       {

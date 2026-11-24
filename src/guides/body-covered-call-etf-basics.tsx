@@ -40,9 +40,9 @@ export default (
       <h2>전략별 비교</h2>
       <ul>
         <li>
-          <b>100% 오버레이 (매일 콜 매도, 예: QYLD, TIGER 데일리타겟)</b>
+          <b>100% 오버레이 (등가격 콜 매도, 예: QYLD)</b>
           <br />
-          매우 공격적인 분배율. 상승 여지를 거의 포기하므로 강세장에서는
+          보유 자산 전체에 대해 매월 콜을 매도. 상승 여지를 거의 포기하므로 강세장에서는
           장기적으로 <b>NAV가 감소</b>할 수 있습니다. 고정 현금흐름을 최우선시하는
           투자자에게 적합.
         </li>
@@ -51,6 +51,13 @@ export default (
           <br />
           보유분의 절반만 콜 매도. 분배율은 낮지만 상승분 일부를 보존.
           성장 + 배당의 절충형.
+        </li>
+        <li>
+          <b>타겟 프리미엄 (예: TIGER 미국나스닥100타겟데일리커버드콜)</b>
+          <br />
+          목표 프리미엄만큼만 만기가 짧은 콜을 매도. 이 상품은 옵션 매도 비중이
+          <b>10% 이하</b>로 알려져 있어 나머지 약 90%가 지수 상승에 참여합니다.
+          이름에 "데일리"가 있어도 100% 오버레이가 아닙니다.
         </li>
         <li>
           <b>지수 옵션 + 선택적 OTM (예: JEPQ, QQQI)</b>
@@ -80,7 +87,7 @@ export default (
           <b>강세장에서 기회비용 큼</b> — 기초자산이 크게 오를 때 이익이 제한
         </li>
         <li>
-          <b>장기 NAV 감소 가능성</b> — 특히 공격적 데일리타겟 계열은 분배금이
+          <b>장기 NAV 감소 가능성</b> — 특히 100% 오버레이 계열은 분배금이
           원금 일부를 갉아먹을 수 있음 (Return of Capital)
         </li>
         <li>
@@ -104,13 +111,21 @@ export default (
     </section>
 
     <section>
+      <h2>확인에 쓴 자료</h2>
+      <ul>
+        <li><a href="https://www.globalxetfs.com/funds/qyld" target="_blank" rel="noopener noreferrer">Global X — QYLD 상품 안내</a></li>
+        <li><a href="https://news.tf.co.kr/read/economy/2233226.htm" target="_blank" rel="noopener noreferrer">더팩트 — TIGER 타겟데일리커버드콜 운용 방식 보도</a></li>
+      </ul>
+    </section>
+
+    <section>
       <h2>시뮬레이션 시 권장 가정</h2>
       <p>
         <a href="/">홈 시뮬레이터</a>에서 커버드콜 ETF를 넣을 때는 다음 범위를
         참고해 <b>낙관/기본/보수</b> 3시나리오로 돌려보시길 권장합니다.
       </p>
       <ul>
-        <li>공격적 100% 오버레이 (QYLD, 데일리타겟) — 상승률: <b>-3% ~ +2%</b></li>
+        <li>100% 오버레이 (QYLD 등) — 상승률: <b>-3% ~ +2%</b></li>
         <li>균형형 (JEPQ, QQQI) — 상승률: <b>0% ~ +5%</b></li>
         <li>50% 오버레이 (QYLG) — 상승률: <b>+2% ~ +7%</b></li>
       </ul>

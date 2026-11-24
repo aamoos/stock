@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchUsdKrwRate } from '../fxRate';
 import { type Holding, formatKrwFull } from '../simulator';
 import { clearLocalStorageKeys, useLocalStorage } from '../useLocalStorage';
@@ -17,10 +18,23 @@ const AD_SLOT_BOTTOM = import.meta.env.VITE_ADSENSE_SLOT_BOTTOM;
 
 const STORAGE_KEYS = [
   'holdings', 'months', 'usdKrw', 'usdKrwFxInfo',
-  'reinvest', 'startYm', 'expandedIds', 'hiddenIds',
+  'reinvest', 'startYm', 'expandedIds', 'hiddenIds', 'goalForm',
 ];
 
-const DEFAULT_HOLDINGS: Holding[] = [];
+const EXAMPLE_ID = 'example';
+
+// 첫 방문자가 결과 화면을 바로 볼 수 있도록 넣는 가정값. 실제 상품이 아니다.
+const DEFAULT_HOLDINGS: Holding[] = [
+  {
+    id: EXAMPLE_ID, name: '예시 월배당 ETF', ticker: '', account: 'general', currency: 'KRW',
+    shares: 1000, pricePerShare: 10000, annualYieldPct: 10,
+    annualGrowthPct: 0, monthlyContribution: 500000, taxRatePct: 15.4,
+  },
+];
+
+// 일반계좌: 국내 상장 15.4%, 미국 직접 투자 15%. ISA: 한도 내 0%
+const defaultTaxRate = (account: Holding['account'], currency: Holding['currency']) =>
+  account === 'isa' ? 0 : currency === 'USD' ? 15 : 15.4;
 
 const ACCOUNT_BADGE: Record<Holding['account'], string> = {
   general: '일반',
@@ -186,6 +200,12 @@ export function HomePage() {
 
   const removeHolding = (id: string) => {
     setHoldings((prev) => prev.filter((h) => h.id !== id));
+  };
+
+  const startOwn = () => {
+    removeHolding(EXAMPLE_ID);
+    addHolding();
+    setDrawerOpen(true);
   };
 
   // Worker 결과에서 파생값 추출
@@ -362,7 +382,7 @@ export function HomePage() {
                             value={h.account}
                             onChange={(e) => {
                               const nextAccount = e.target.value as Holding['account'];
-                              updateHolding(h.id, { account: nextAccount, taxRatePct: nextAccount === 'isa' ? 0 : 15.4 });
+                              updateHolding(h.id, { account: nextAccount, taxRatePct: defaultTaxRate(nextAccount, h.currency) });
                             }}
                           >
                             <option value="general">일반계좌</option>
@@ -373,7 +393,15 @@ export function HomePage() {
                           <span>통화</span>
                           <select
                             value={h.currency}
-                            onChange={(e) => updateHolding(h.id, { currency: e.target.value as Holding['currency'] })}
+                            onChange={(e) => {
+                              const nextCurrency = e.target.value as Holding['currency'];
+                              // 세율을 직접 고친 경우에는 건드리지 않는다.
+                              const isDefault = h.taxRatePct === defaultTaxRate(h.account, h.currency);
+                              updateHolding(h.id, {
+                                currency: nextCurrency,
+                                ...(isDefault ? { taxRatePct: defaultTaxRate(h.account, nextCurrency) } : {}),
+                              });
+                            }}
                           >
                             <option value="KRW">KRW</option>
                             <option value="USD">USD</option>
@@ -421,7 +449,7 @@ export function HomePage() {
                             onChange={(e) => updateHolding(h.id, { taxRatePct: Number(e.target.value) || 0 })}
                           />
                           <small className="field-hint">
-                            {h.account === 'isa' ? '한도 내 0% · 초과 9.9%' : '국내상장 / 미국직접 ≈ 15.4%'}
+                            {h.account === 'isa' ? '한도 내 0% · 초과 9.9%' : '국내상장 15.4% · 미국직접 15%'}
                           </small>
                         </label>
                       </div>
@@ -482,9 +510,19 @@ export function HomePage() {
           </div>
         </header>
 
-        <HomeIntro />
+        <Link to="/goal" className="goal-banner">
+          <b>월 100만원 배당 받으려면 얼마가 필요할까?</b>
+          <span>목표에서 거꾸로 계산하기 →</span>
+        </Link>
 
-        {!hasResults && (
+        {visibleHoldings.some((h) => h.id === EXAMPLE_ID) && (
+          <div className="example-note">
+            <span>아래는 <b>예시 값</b>으로 계산한 결과입니다. 실제 상품이 아닙니다.</span>
+            <button type="button" className="btn btn-primary btn-sm" onClick={startOwn}>내 종목으로 시작</button>
+          </div>
+        )}
+
+        {!hasResults && holdings.length === 0 && (
           <section className="card">
             <div className="empty">
               <b>종목을 추가하면 시뮬레이션이 시작됩니다</b>
@@ -621,6 +659,8 @@ export function HomePage() {
             <AdSlot slot={AD_SLOT_BOTTOM} format="auto" />
           </>
         )}
+
+        <HomeIntro />
 
         <HomeFaq />
 

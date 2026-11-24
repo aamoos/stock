@@ -19,7 +19,8 @@ if (!template.includes('<div id="root"></div>')) {
 }
 
 let count = 0;
-for (const route of PRERENDER_ROUTES) {
+// '/404' 는 일치하는 라우트가 없어 NotFoundPage 로 렌더링된다.
+for (const route of [...PRERENDER_ROUTES, '/404']) {
   const { appHtml, head } = render(route);
 
   let html = template;
@@ -33,6 +34,8 @@ for (const route of PRERENDER_ROUTES) {
   const outPath =
     route === '/'
       ? path.join(distDir, 'index.html')
+      : route === '/404'
+      ? path.join(distDir, '404.html')
       : path.join(distDir, route.replace(/^\//, ''), 'index.html');
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });

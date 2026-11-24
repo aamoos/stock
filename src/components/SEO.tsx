@@ -12,6 +12,7 @@ interface SEOProps {
   publishedAt?: string;
   modifiedAt?: string;
   schemaJson?: object;
+  noindex?: boolean;
 }
 
 export function SEO({
@@ -22,6 +23,7 @@ export function SEO({
   publishedAt,
   modifiedAt,
   schemaJson,
+  noindex = false,
 }: SEOProps) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} | 월배당 ETF 배당 재투자 계산기`;
   const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : BASE_URL;
@@ -30,7 +32,9 @@ export function SEO({
     <Helmet>
       <title>{fullTitle}</title>
       {description && <meta name="description" content={description} />}
-      <link rel="canonical" href={canonicalUrl} />
+      {noindex
+        ? <meta name="robots" content="noindex" />
+        : <link rel="canonical" href={canonicalUrl} />}
 
       <meta property="og:type" content={ogType} />
       <meta property="og:title" content={fullTitle} />

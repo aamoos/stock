@@ -9,6 +9,8 @@ const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage').then(m => ({ 
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then(m => ({ default: m.PrivacyPage })));
 const GuideIndexPage = lazy(() => import('./pages/GuideIndexPage').then(m => ({ default: m.GuideIndexPage })));
 const GuideArticlePage = lazy(() => import('./pages/GuideArticlePage').then(m => ({ default: m.GuideArticlePage })));
+const GoalPage = lazy(() => import('./pages/GoalPage').then(m => ({ default: m.GoalPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
 function AppRoutes() {
@@ -18,13 +20,14 @@ function AppRoutes() {
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/goal" element={<GoalPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/disclaimer" element={<DisclaimerPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/guide" element={<GuideIndexPage />} />
           <Route path="/guide/:slug" element={<GuideArticlePage />} />
-          <Route path="*" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

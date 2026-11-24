@@ -12,6 +12,11 @@ export function HomeIntro() {
         10년·20년 뒤 자산이 어떻게 달라지는지 비교할 수 있게 만든 무료 도구입니다.
       </p>
 
+      <p>
+        받고 싶은 배당금이 정해져 있다면{' '}
+        <Link to="/goal">월배당 목표 계산기</Link>로 필요한 투자금을 거꾸로 계산해 보세요.
+      </p>
+
       <h3>시작 방법</h3>
       <ol className="home-intro-steps">
         <li>왼쪽 <b>설정</b> 패널(☰)에서 시뮬레이션 기간·환율·DRIP 여부를 정합니다.</li>

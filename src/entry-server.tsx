@@ -2,6 +2,8 @@ import { renderToString } from 'react-dom/server';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes, StaticRouter } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
+import { GoalPage } from './pages/GoalPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
@@ -24,13 +26,14 @@ export function render(url: string): RenderResult {
         <StaticRouter location={url}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/goal" element={<GoalPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/guide" element={<GuideIndexPage />} />
             <Route path="/guide/:slug" element={<GuideArticlePage />} />
-            <Route path="*" element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </StaticRouter>
       </GuideBodyContext.Provider>
@@ -61,6 +64,7 @@ export function render(url: string): RenderResult {
 // 프리렌더 대상 라우트 목록 (정적 페이지 + 모든 가이드 글)
 export const PRERENDER_ROUTES: string[] = [
   '/',
+  '/goal',
   '/about',
   '/contact',
   '/disclaimer',
@@ -79,6 +83,7 @@ export interface SitemapEntry {
 // 가이드 메타데이터와 항상 동기화되는 sitemap 항목 (빌드 시 dist/sitemap.xml 생성에 사용)
 export const SITEMAP: SitemapEntry[] = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
+  { loc: '/goal', changefreq: 'monthly', priority: '0.9' },
   { loc: '/guide', changefreq: 'weekly', priority: '0.8' },
   ...GUIDES.map((g) => ({
     loc: `/guide/${g.slug}`,
